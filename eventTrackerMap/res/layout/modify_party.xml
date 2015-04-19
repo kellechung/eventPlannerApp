@@ -1,0 +1,182 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_mod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" >
+
+        <ImageView
+            android:id="@+id/picParty_mod"
+            android:layout_width="174dp"
+            android:layout_height="74dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/party" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/partyTheme_mod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/relativeLayout_mod"
+        android:layout_marginTop="15dp"
+        android:drawableLeft="@drawable/pt"
+        android:gravity="center"
+        android:text="Party Theme: "
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/partyTheme_et_mod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/partyTheme_mod"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/partyTheme_mod"
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="center_horizontal" />
+    
+
+	//create an imagebutton, when click on it, prompt the user to select a date
+     
+     
+     <TextView
+           android:id="@+id/showMyDate_mod"
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:layout_weight="3"
+           android:gravity="center_horizontal"
+           android:padding="0dp" />
+
+     <TextView
+         android:id="@+id/location_mod"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/myDatePickerButton_mod"
+         android:layout_marginTop="15dp"
+         android:drawableLeft="@drawable/l"
+         android:gravity="center"
+         android:text="Location: "
+         android:textSize="15sp" />
+
+     <EditText
+         android:id="@+id/location_et_mod"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignBottom="@+id/location_mod"
+         android:layout_alignParentRight="true"
+         android:layout_toRightOf="@+id/location_mod"
+         android:layout_weight="1"
+         android:ems="10"
+         android:gravity="center_horizontal" >
+
+         <requestFocus />
+     </EditText>
+
+     <ImageButton
+         android:id="@+id/myDatePickerButton_mod"
+         android:layout_width="35dp"
+         android:layout_height="26dp"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/partyTheme_mod"
+         android:layout_marginTop="15dp"
+         android:layout_weight="1"
+         android:src="@drawable/calendar_icon" />
+
+     <TextView
+         android:id="@+id/food_mod"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/location_mod"
+         android:layout_marginTop="15dp"
+         android:drawableLeft="@drawable/f"
+         android:text="Food: "
+         android:textSize="15sp" />
+     
+
+     <Spinner
+         android:id="@+id/f_mod"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignTop="@+id/food_mod"
+         android:layout_toRightOf="@+id/food_mod" />
+     
+      <TextView
+         android:id="@+id/dressing_mod"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:drawableLeft="@drawable/radio"
+         android:layout_below="@+id/food_mod"
+         android:layout_marginTop="15dp"
+         android:text="Dressing: "
+         android:textSize="15sp"/>
+
+           <EditText
+               android:id="@+id/dressing_et_mod"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignBottom="@+id/dressing_mod"
+               android:layout_alignParentRight="true"
+               android:layout_toRightOf="@+id/location_mod"
+               android:ems="10" />
+           
+           
+         <TextView
+         android:id="@+id/comment_mod"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:drawableLeft="@drawable/note"
+         android:layout_below="@+id/dressing_mod"
+         android:layout_marginTop="15dp"
+         android:text="Comment: "
+         android:textSize="15sp"/>
+
+         <EditText
+             android:id="@+id/comment_et_mod"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentRight="true"
+             android:layout_below="@+id/comment_mod"
+             android:ems="10" />
+         
+         
+           <EditText
+             android:id="@+id/commentEnter2_mod"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentRight="true"
+             android:layout_below="@+id/comment_et_mod"
+             android:ems="10" />
+
+	<Button
+	    android:id="@+id/update_bt"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_centerHorizontal="true"
+	    android:gravity="bottom"
+	    android:text="Update" />
+	<Button
+	    android:id="@+id/delete_bt"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_centerHorizontal="true"
+	    android:layout_toRightOf="@id/update_bt"
+	    android:gravity="bottom"
+	    android:text="Delete" />
+
+
+</RelativeLayout>

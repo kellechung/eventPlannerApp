@@ -45,6 +45,18 @@
         </activity>
         <activity android:name="hotelActivity" >
         </activity>
+        <activity
+            android:name=".PartyListMain"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".Add_newparty"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".Modify_party"
+            android:label="@string/app_name" >
+        </activity>
 
         <uses-library
             android:name="com.google.android.maps"

@@ -46,10 +46,11 @@ public class main extends Activity implements OnClickListener {
 			startActivity(i2);
 			break;
 
-		// case 2, click on button Meeting
-		// case R.id.btnParty:
-		// Intent i3 = new Intent(main.this, Party.class);
-		// break;
+		 //case 3, click on button Meeting
+		 case R.id.btnParty:
+		 Intent i3 = new Intent(main.this, PartyListMain.class);
+		 startActivity(i3);
+		 break;
 
 		}
 	}
