@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+    
+
+   //title of this activity
+
+   <TextView
+       android:id="@+id/title"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="5dp"
+       android:gravity="center"
+       android:text="Create a New Meeting"
+       android:textSize="16dp"
+       android:textStyle="bold" />
+   
+       //first row, enter subject 
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginBottom="5dp" >
+
+   <TextView
+       android:id="@+id/meetingSubjectTxt"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="5dp"
+       android:text="Subject"
+       android:textAppearance="?android:attr/textAppearanceSmall"
+       android:textSize="14dp"
+       android:textStyle="bold" >
+       
+   </TextView>
+   
+   <EditText
+        android:id="@+id/meetingSubjectEnter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:textSize="14dp" >
+    </EditText>   	
+    </LinearLayout>
+
+   
+   //second row, select data 
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginBottom="5dp" >
+	//create an imagebutton, when click on it, prompt the user to select a date
+       <ImageButton
+           android:id="@+id/myDatePickerButton"
+           android:layout_width="35dp"
+           android:layout_height="26dp"
+           android:layout_weight="1"
+           android:src="@drawable/calendar_icon"
+           />
+
+       <TextView
+           android:id="@+id/showMyDate"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight="3"
+           android:gravity="center_horizontal"
+           android:padding="0dp" />
+
+   </LinearLayout>
+
+   //third row, select from time and to time
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginBottom="5dp" >
+  	 <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal" 
+       android:layout_weight="1">
+
+      <TextView
+          android:id="@+id/showTimeFrom"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="From"
+          android:textSize="14dp"
+          android:textStyle="bold" />
+       
+     <EditText
+         android:id="@+id/EnterTimefrom"
+         android:layout_width="100dp"
+         android:layout_height="wrap_content"
+         android:textSize="14dp" />
+   	  
+     </LinearLayout>
+   
+  	 <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal" 
+       android:layout_weight="1"
+       android:layout_marginLeft="5dp">
+
+      <TextView
+          android:id="@+id/showTimeTo"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="To"
+          android:textSize="14dp"
+          android:textStyle="bold" />
+
+     <EditText
+         android:id="@+id/EnterTimeTo"
+         android:layout_width="110dp"
+         android:layout_height="wrap_content"
+         android:textSize="14dp" />
+
+     </LinearLayout>
+  	 
+       
+   </LinearLayout>
+   
+   
+   //fourth row, enter location
+   <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp" >
+
+   <TextView
+       android:id="@+id/meetingLocationTxt"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Location"
+       android:textAppearance="?android:attr/textAppearanceSmall"
+       android:textSize="14dp"
+       android:textStyle="bold" >
+       
+   </TextView>
+   
+   <EditText
+        android:id="@+id/meetingLocationEnter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:textSize="14dp" >
+    </EditText>   	
+   </LinearLayout>
+   
+   //fifth row, enter email addresses to send invitation
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="5dp"
+       android:background="#1E90FF"
+       android:orientation="horizontal" >
+
+       <TextView
+           android:id="@+id/meetingEmailTxt"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:padding="10dp"
+           android:text="Add an attendant from Contacts"
+           android:textAppearance="?android:attr/textAppearanceSmall"
+           android:textSize="14dp"
+           android:textStyle="bold" >
+
+       </TextView>
+
+       <ImageButton
+           android:id="@+id/addContact"
+           android:layout_width="35dp"
+           android:layout_height="35dp"
+           android:layout_marginBottom="5dp"
+           android:layout_marginLeft="10dp"
+           android:background="#1E90FF"
+           android:padding="10dp"
+           android:src="@drawable/ic_action_mail_add" />
+
+   </LinearLayout>
+
+   <ListView
+       android:id="@id/android:list"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:background="#E8E9DB"
+       android:fastScrollEnabled="true"
+       android:inputType="textEmailAddress"
+       android:scrollbarStyle="insideInset"
+       android:textSize="12sp"/>
+
+
+</LinearLayout>
+    

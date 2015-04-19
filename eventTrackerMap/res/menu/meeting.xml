@@ -1,0 +1,40 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.eventtracker.Destination" >
+    
+  //action 1, save the current meeting
+  <item
+        android:id="@+id/saving"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="Save"
+        android:icon="@drawable/ic_action_save"/>
+  
+   //action 2, send out the invitation 
+   <item
+        android:id="@+id/sendEmail"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_email"
+        android:title="Send"
+        android:textSize="10dp"/>
+    
+   //action 3, send out the invitation 
+   <item
+        android:id="@+id/viewMeeting"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_collection"
+        android:title="Send"
+        android:textSize="10dp"/>
+   
+   //action 3, exit
+   <item
+        android:id="@+id/exit"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="Exit"
+        android:icon="@drawable/ic_action_back"
+        android:textSize="10dp"/>
+   
+</menu>

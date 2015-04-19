@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/myLinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="4dp"
+    android:background="#CCFF99" >
+    
+    
+    <Button
+        android:id="@+id/btnMeeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Let's Go Study!"
+        android:textStyle="bold" 
+        >
+    </Button>   
+    
+    <Button
+        android:id="@+id/btnTrip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Let's Go Travel!"
+        android:textStyle="bold" 
+        >
+    </Button>   
+    
+    <Button
+        android:id="@+id/btnParty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Let's Go Party!"
+        android:textStyle="bold" 
+        >
+    </Button>   
+    
+    
+    
+    
+   
+</LinearLayout>
