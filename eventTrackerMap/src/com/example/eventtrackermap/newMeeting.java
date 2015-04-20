@@ -7,6 +7,7 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -97,8 +98,9 @@ public class newMeeting extends Activity{
         
         //initialize database
         db=openOrCreateDatabase("meetings",MODE_PRIVATE, null);
+        db.execSQL("DROP TABLE IF EXISTS " + "meetings");
         db.execSQL("CREATE TABLE IF NOT EXISTS meetings (subject VARCHAR2, date VARCHAR2," +
-        		"begintime VARCHAR2, endtime VARCHAR2, location VARCHAR2);");
+        		"location VARCHAR2, timeStart VARCHAR2, timeEnd VARCHAR2, description VARCHAR2);");
        
     };
     
@@ -232,10 +234,10 @@ public class newMeeting extends Activity{
 	     		sendEmail(); 
 	     		return true;
 	         case R.id.saving://case 2, press save button
-	        	 //storeMeeting();
+	        	 storeMeeting();
 	             return true;
 	         case R.id.viewMeeting://case 3, press viewmeeting button
-	        	 //showMeeting(addContact);
+	        	 viewMeeting();
 	             return true;
 	         case R.id.exit://case 4, press exit button
 	        	 finish();
@@ -276,7 +278,58 @@ public class newMeeting extends Activity{
 	      }
 	   }
 	 
-	 
+	protected void storeMeeting(){
+		subject= meetingSubject.getText().toString(); 
+		  date= meetingDate.getText().toString();
+		  location= meetingLocation.getText().toString();
+		  fromTime= meetingFromTime.getText().toString();
+		  toTime= meetingToTime.getText().toString();
+		  description= meetingDescription.getText().toString();
+		  if(subject.trim().length()==0|| date.trim().length()==0|| location.trim().length()==0||
+		     fromTime.trim().length()==0|| toTime.trim().length()==0 || description.trim().length()==0)
+	    		{
+			  		Toast.makeText(newMeeting.this, 
+				         "Please enter all information required.", Toast.LENGTH_SHORT).show();
+	    		}
+	    		db.execSQL("INSERT INTO meetings VALUES('"+subject+"','"+date+"','"+location+"','"+fromTime+"','"+toTime+
+	    				   "','"+description+"');");
+	    		Toast.makeText(newMeeting.this, 
+				         "Your meeting has been saved.", Toast.LENGTH_SHORT).show();
+	}
+	
+	protected void viewMeeting(){
+		  date= meetingDate.getText().toString();
+		  location= meetingLocation.getText().toString();
+		  fromTime= meetingFromTime.getText().toString();
+		  toTime= meetingToTime.getText().toString();
+		  description= meetingDescription.getText().toString();
+		  Cursor c=db.rawQuery("SELECT * FROM meetings", null);
+  			if(c.getCount()==0)
+  			{
+  				Toast.makeText(newMeeting.this, 
+				         "No meeting found.", Toast.LENGTH_SHORT).show();
+  			}
+  		StringBuffer buffer=new StringBuffer();
+  		while(c.moveToNext())
+  		{
+  			buffer.append("Subject: "+c.getString(0)+"\n");
+  			buffer.append("Date: "+c.getString(1)+"\n");
+  			buffer.append("Location: "+c.getString(2)+"\n");
+  			buffer.append("Start Time: "+c.getString(3)+"\n");
+  			buffer.append("End Time: "+c.getString(4)+"\n");
+  			buffer.append("Description: "+c.getString(5)+"\n\n");
+  		}
+  		showMessage("Meeting Details", buffer.toString());
+  	}
+  	
+    public void showMessage(String title,String message)
+    {
+    	Builder builder=new Builder(this);
+    	builder.setCancelable(true);
+    	builder.setTitle(title);
+    	builder.setMessage(message);
+    	builder.show();
+	}
 
 	  
 	 
