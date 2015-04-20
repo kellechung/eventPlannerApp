@@ -269,9 +269,16 @@ public class newMeeting extends Activity{
 	    		  				"\n"+"Description: "+description+ "\n"+"\n"+"Please respond to this email if you can't attend. Thank you!"); 
 
 	      try {
-	         startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-	         finish();
-	         Log.i("Finished sending email...", "");
+	    	  if(subject.trim().length()==0|| date.trim().length()==0|| location.trim().length()==0||
+	    			     fromTime.trim().length()==0|| toTime.trim().length()==0 || description.trim().length()==0)
+	    		    		{
+	    				  		Toast.makeText(newMeeting.this, 
+	    					         "Please enter all information required.", Toast.LENGTH_SHORT).show();
+	    		    		}
+	    	  else{
+	    	  startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+	          finish();
+	          Log.i("Finished sending email...", "");}
 	      } catch (android.content.ActivityNotFoundException ex) {
 	         Toast.makeText(newMeeting.this, 
 	         "There is no email client installed.", Toast.LENGTH_SHORT).show();
@@ -291,10 +298,10 @@ public class newMeeting extends Activity{
 			  		Toast.makeText(newMeeting.this, 
 				         "Please enter all information required.", Toast.LENGTH_SHORT).show();
 	    		}
-	    		db.execSQL("INSERT INTO meetings VALUES('"+subject+"','"+date+"','"+location+"','"+fromTime+"','"+toTime+
+		  else {db.execSQL("INSERT INTO meetings VALUES('"+subject+"','"+date+"','"+location+"','"+fromTime+"','"+toTime+
 	    				   "','"+description+"');");
 	    		Toast.makeText(newMeeting.this, 
-				         "Your meeting has been saved.", Toast.LENGTH_SHORT).show();
+				         "Your meeting has been saved.", Toast.LENGTH_SHORT).show();}
 	}
 	
 	protected void viewMeeting(){

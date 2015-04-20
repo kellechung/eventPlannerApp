@@ -3,43 +3,121 @@
     android:id="@+id/myLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="top"
+    android:background="@drawable/bg1"
     android:orientation="vertical"
-    android:padding="4dp"
-    android:background="#CCFF99" >
-    
-    
-    <Button
-        android:id="@+id/btnMeeting"
-        android:layout_width="wrap_content"
+    android:padding="4dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentTop="true"
+    	android:layout_marginBottom="40dp"  >
+
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Let's Go Study!"
-        android:textStyle="bold" 
-        >
-    </Button>   
+        android:adjustViewBounds="true"
+        android:src="@drawable/bentley2" />
+
+    </RelativeLayout>
     
-    <Button
-        android:id="@+id/btnTrip"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Let's Go Travel!"
-        android:textStyle="bold" 
-        >
-    </Button>   
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/imageMeeting"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="30dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/meeting_main" />
+
+        <Button
+            android:id="@+id/btnMeeting"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:text="Go Study"
+            android:textStyle="bold" />
+
+    </LinearLayout>
     
-    <Button
-        android:id="@+id/btnParty"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Let's Go Party!"
-        android:textStyle="bold" 
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/imageTrip"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="30dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/trip_main" />
+
+        <Button
+            android:id="@+id/btnTrip"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:text="Go Travel"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/imageParty"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/party_main" />
+
+        <Button
+            android:id="@+id/btnParty"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:text="Go Party"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    
+     <LinearLayout
+        android:id="@+id/aniLayout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+       android:layout_height="wrap_content"       
         >
-    </Button>   
-    
-    
-    
-    
-   
+
+     <TextView
+         android:id="@+id/aniText"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="20dp"
+         android:gravity="center"
+         android:text="Thanks for using our app!"
+         android:textColor="#14C4D8"
+         android:textSize="30dp"
+         android:textStyle="bold" />
+        
+   </LinearLayout>
 </LinearLayout>
