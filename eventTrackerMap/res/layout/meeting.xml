@@ -5,10 +5,9 @@
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" >
+    android:paddingTop="@dimen/activity_vertical_margin" 
+    android:background="@drawable/background_meeting">
     
-
-   //title of this activity
 
    <TextView
        android:id="@+id/title"
@@ -18,9 +17,10 @@
        android:gravity="center"
        android:text="Create a New Meeting"
        android:textSize="16dp"
-       android:textStyle="bold" />
+       android:textStyle="bold"
+       android:textColor="#FFFFFF"  />
    
-       //first row, enter subject 
+    //first row, enter subject 
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
@@ -35,7 +35,8 @@
        android:text="Subject"
        android:textAppearance="?android:attr/textAppearanceSmall"
        android:textSize="14dp"
-       android:textStyle="bold" >
+       android:textStyle="bold"
+       android:textColor="#FFFFFF" >
        
    </TextView>
    
@@ -45,7 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:textSize="14dp" >
+        android:textSize="14dp" 
+        android:textColor="#FFFFFF" >
     </EditText>   	
     </LinearLayout>
 
@@ -71,7 +73,8 @@
            android:layout_height="wrap_content"
            android:layout_weight="3"
            android:gravity="center_horizontal"
-           android:padding="0dp" />
+           android:padding="0dp"
+           android:textColor="#FFFFFF"  />
 
    </LinearLayout>
 
@@ -94,13 +97,15 @@
           android:layout_weight="1"
           android:text="From"
           android:textSize="14dp"
-          android:textStyle="bold" />
+          android:textStyle="bold"
+          android:textColor="#FFFFFF"  />
        
      <EditText
          android:id="@+id/EnterTimefrom"
          android:layout_width="100dp"
          android:layout_height="wrap_content"
-         android:textSize="14dp" />
+         android:textSize="14dp"
+         android:textColor="#FFFFFF"  />
    	  
      </LinearLayout>
    
@@ -118,13 +123,15 @@
           android:layout_weight="1"
           android:text="To"
           android:textSize="14dp"
-          android:textStyle="bold" />
+          android:textStyle="bold"
+          android:textColor="#FFFFFF"  />
 
      <EditText
          android:id="@+id/EnterTimeTo"
          android:layout_width="110dp"
          android:layout_height="wrap_content"
-         android:textSize="14dp" />
+         android:textSize="14dp"
+         android:textColor="#FFFFFF"  />
 
      </LinearLayout>
   	 
@@ -146,7 +153,8 @@
        android:text="Location"
        android:textAppearance="?android:attr/textAppearanceSmall"
        android:textSize="14dp"
-       android:textStyle="bold" >
+       android:textStyle="bold"
+       android:textColor="#FFFFFF"  >
        
    </TextView>
    
@@ -156,11 +164,42 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_horizontal"
-        android:textSize="14dp" >
+        android:textSize="14dp"
+        android:textColor="#FFFFFF"  >
     </EditText>   	
    </LinearLayout>
    
-   //fifth row, enter email addresses to send invitation
+   //fifth row, enter location
+   <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp" >
+
+   <TextView
+       android:id="@+id/meetingDescriptionTxt"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Description"
+       android:textAppearance="?android:attr/textAppearanceSmall"
+       android:textSize="14dp"
+       android:textStyle="bold"
+       android:textColor="#FFFFFF"  >
+       
+   </TextView>
+   
+   <EditText
+        android:id="@+id/meetingDescriptionEnter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:textSize="14dp"
+        android:textColor="#FFFFFF"  >
+    </EditText>   	
+   </LinearLayout>
+   
+   //sixth row, enter email addresses to send invitation
 
    <LinearLayout
        android:layout_width="match_parent"
@@ -174,10 +213,11 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:padding="10dp"
-           android:text="Add an attendant from Contacts"
+           android:text="Add a participant from Contacts"
            android:textAppearance="?android:attr/textAppearanceSmall"
            android:textSize="14dp"
-           android:textStyle="bold" >
+           android:textStyle="bold"
+           android:textColor="#FFFFFF" >
 
        </TextView>
 
@@ -197,11 +237,11 @@
        android:id="@id/android:list"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:background="#E8E9DB"
        android:fastScrollEnabled="true"
        android:inputType="textEmailAddress"
        android:scrollbarStyle="insideInset"
-       android:textSize="12sp"/>
+       android:textSize="12sp"
+       android:textColor="#FFFFFF"/>
 
 
 </LinearLayout>
