@@ -88,7 +88,7 @@
         android:required="true" />
 
     <uses-permission android:name="com.course.example.justamap.permission.MAPS_RECEIVE" />
-
+ 	<uses-permission android:name="android.permission.VIBRATE" />
     <permission
         android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"
         android:protectionLevel="signature" >

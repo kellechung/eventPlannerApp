@@ -375,18 +375,6 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int useViewLifecycle=0x7f010013;
-        /**  Defines the set of transition to be used between activities 
-         <p>Must be one of the following constant values.</p>
-<table>
-<colgroup align="left" />
-<colgroup align="left" />
-<colgroup align="left" />
-<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-<tr><td><code>slide</code></td><td>1</td><td></td></tr>
-<tr><td><code>none</code></td><td>2</td><td></td></tr>
-</table>
-         */
-        public static final int windowTransitionStyle=0x7f010025;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -478,195 +466,198 @@ containing a value of this type.
         public static final int common_signin_btn_text_normal_light=0x7f02001f;
         public static final int common_signin_btn_text_pressed_dark=0x7f020020;
         public static final int common_signin_btn_text_pressed_light=0x7f020021;
-        public static final int f=0x7f020022;
-        public static final int ic_action_about=0x7f020023;
-        public static final int ic_action_back=0x7f020024;
-        public static final int ic_action_backspace=0x7f020025;
-        public static final int ic_action_collection=0x7f020026;
-        public static final int ic_action_done=0x7f020027;
-        public static final int ic_action_email=0x7f020028;
-        public static final int ic_action_mail_add=0x7f020029;
-        public static final int ic_action_save=0x7f02002a;
-        public static final int ic_launcher=0x7f02002b;
-        public static final int ic_plusone_medium_off_client=0x7f02002c;
-        public static final int ic_plusone_small_off_client=0x7f02002d;
-        public static final int ic_plusone_standard_off_client=0x7f02002e;
-        public static final int ic_plusone_tall_off_client=0x7f02002f;
-        public static final int l=0x7f020030;
-        public static final int letterpaper_background=0x7f020031;
-        public static final int mapicon=0x7f020032;
-        public static final int mapicon1=0x7f020033;
-        public static final int marker=0x7f020034;
-        public static final int meeting_main=0x7f020035;
-        public static final int note=0x7f020036;
-        public static final int party=0x7f020037;
-        public static final int party_main=0x7f020038;
-        public static final int powered_by_google_dark=0x7f020039;
-        public static final int powered_by_google_light=0x7f02003a;
-        public static final int ppl=0x7f02003b;
-        public static final int pt=0x7f02003c;
-        public static final int radio=0x7f02003d;
-        public static final int t=0x7f02003e;
-        public static final int trip_main=0x7f02003f;
+        public static final int delete=0x7f020022;
+        public static final int droid=0x7f020023;
+        public static final int f=0x7f020024;
+        public static final int ic_action_about=0x7f020025;
+        public static final int ic_action_back=0x7f020026;
+        public static final int ic_action_backspace=0x7f020027;
+        public static final int ic_action_collection=0x7f020028;
+        public static final int ic_action_done=0x7f020029;
+        public static final int ic_action_email=0x7f02002a;
+        public static final int ic_action_mail_add=0x7f02002b;
+        public static final int ic_action_save=0x7f02002c;
+        public static final int ic_launcher=0x7f02002d;
+        public static final int ic_plusone_medium_off_client=0x7f02002e;
+        public static final int ic_plusone_small_off_client=0x7f02002f;
+        public static final int ic_plusone_standard_off_client=0x7f020030;
+        public static final int ic_plusone_tall_off_client=0x7f020031;
+        public static final int icon=0x7f020032;
+        public static final int l=0x7f020033;
+        public static final int letterpaper_background=0x7f020034;
+        public static final int mapicon=0x7f020035;
+        public static final int mapicon1=0x7f020036;
+        public static final int marker=0x7f020037;
+        public static final int meeting_main=0x7f020038;
+        public static final int note=0x7f020039;
+        public static final int party=0x7f02003a;
+        public static final int party321=0x7f02003b;
+        public static final int party_main=0x7f02003c;
+        public static final int powered_by_google_dark=0x7f02003d;
+        public static final int powered_by_google_light=0x7f02003e;
+        public static final int ppl=0x7f02003f;
+        public static final int pt=0x7f020040;
+        public static final int radio=0x7f020041;
+        public static final int t=0x7f020042;
+        public static final int trip_main=0x7f020043;
     }
     public static final class id {
-        public static final int EnterTimeTo=0x7f0c0059;
-        public static final int EnterTimefrom=0x7f0c0057;
-        public static final int action_settings=0x7f0c0097;
-        public static final int addContact=0x7f0c005f;
-        public static final int addParty_bt_id=0x7f0c0030;
+        public static final int EnterTimeTo=0x7f0c0058;
+        public static final int EnterTimefrom=0x7f0c0056;
+        public static final int action_settings=0x7f0c0090;
+        public static final int addContact=0x7f0c005e;
+        public static final int addParty_btn_id=0x7f0c002f;
         public static final int adjust_height=0x7f0c0000;
         public static final int adjust_width=0x7f0c0001;
-        public static final int aniLayout=0x7f0c004d;
-        public static final int aniText=0x7f0c004e;
+        public static final int aniLayout=0x7f0c004c;
+        public static final int aniText=0x7f0c004d;
         public static final int book_now=0x7f0c0010;
-        public static final int btnAdd=0x7f0c0024;
-        public static final int btnCalculate=0x7f0c0042;
-        public static final int btnCreateTrip=0x7f0c008b;
-        public static final int btnDelete=0x7f0c0027;
-        public static final int btnMapView=0x7f0c0029;
-        public static final int btnMeeting=0x7f0c0048;
-        public static final int btnNext=0x7f0c002a;
-        public static final int btnParty=0x7f0c004c;
-        public static final int btnSave=0x7f0c0026;
-        public static final int btnTrip=0x7f0c004a;
-        public static final int btnUpdate=0x7f0c0025;
-        public static final int budgetAmount=0x7f0c0050;
+        public static final int btnAdd=0x7f0c0023;
+        public static final int btnCalculate=0x7f0c0041;
+        public static final int btnCreateTrip=0x7f0c0084;
+        public static final int btnDelete=0x7f0c0026;
+        public static final int btnMapView=0x7f0c0028;
+        public static final int btnMeeting=0x7f0c0047;
+        public static final int btnNext=0x7f0c0029;
+        public static final int btnParty=0x7f0c004b;
+        public static final int btnSave=0x7f0c0025;
+        public static final int btnTrip=0x7f0c0049;
+        public static final int btnUpdate=0x7f0c0024;
+        public static final int budgetAmount=0x7f0c004f;
         public static final int buyButton=0x7f0c000c;
         public static final int buy_now=0x7f0c0011;
         public static final int buy_with_google=0x7f0c0012;
-        public static final int city=0x7f0c001d;
+        public static final int city=0x7f0c001c;
         public static final int classic=0x7f0c0014;
-        public static final int comment=0x7f0c007b;
-        public static final int commentEnter2=0x7f0c007d;
-        public static final int commentEnter2_mod=0x7f0c006e;
-        public static final int comment_et=0x7f0c007c;
-        public static final int comment_et_mod=0x7f0c006d;
-        public static final int comment_mod=0x7f0c006c;
-        public static final int create_bt=0x7f0c007e;
-        public static final int delete_bt=0x7f0c0070;
+        public static final int comment=0x7f0c006f;
+        public static final int comment_et=0x7f0c0070;
+        public static final int comment_et_mod=0x7f0c0065;
+        public static final int comment_mod=0x7f0c0064;
+        public static final int delete_btn=0x7f0c009b;
         public static final int donate_with_google=0x7f0c0013;
-        public static final int dressing=0x7f0c0079;
-        public static final int dressing_et=0x7f0c007a;
-        public static final int dressing_et_mod=0x7f0c006b;
-        public static final int dressing_mod=0x7f0c006a;
-        public static final int edtGasPrice=0x7f0c008f;
-        public static final int edtItemCost=0x7f0c0096;
-        public static final int edtNumPeople=0x7f0c008a;
-        public static final int edtTextCity=0x7f0c001e;
-        public static final int edtTextCostPerNight=0x7f0c0041;
-        public static final int edtTextDestinationName=0x7f0c001a;
-        public static final int edtTextHotelName=0x7f0c0039;
-        public static final int edtTextItemName=0x7f0c0094;
-        public static final int edtTextMemos=0x7f0c0023;
-        public static final int edtTextNumNights=0x7f0c003f;
-        public static final int edtTextStreetAdd=0x7f0c003b;
-        public static final int edtTextStreetAdress=0x7f0c001c;
-        public static final int edtTextZip=0x7f0c0020;
-        public static final int edtTripName=0x7f0c0088;
-        public static final int exit=0x7f0c009c;
-        public static final int exitApp=0x7f0c0098;
-        public static final int f=0x7f0c0078;
-        public static final int f_mod=0x7f0c0069;
-        public static final int food=0x7f0c0077;
-        public static final int food_mod=0x7f0c0068;
+        public static final int dressing=0x7f0c0073;
+        public static final int dressing_et=0x7f0c0074;
+        public static final int dressing_et_mod=0x7f0c0069;
+        public static final int dressing_mod=0x7f0c0068;
+        public static final int edtGasPrice=0x7f0c0088;
+        public static final int edtItemCost=0x7f0c008f;
+        public static final int edtNumPeople=0x7f0c0083;
+        public static final int edtTextCity=0x7f0c001d;
+        public static final int edtTextCostPerNight=0x7f0c0040;
+        public static final int edtTextDestinationName=0x7f0c0019;
+        public static final int edtTextHotelName=0x7f0c0038;
+        public static final int edtTextItemName=0x7f0c008d;
+        public static final int edtTextMemos=0x7f0c0022;
+        public static final int edtTextNumNights=0x7f0c003e;
+        public static final int edtTextStreetAdd=0x7f0c003a;
+        public static final int edtTextStreetAdress=0x7f0c001b;
+        public static final int edtTextZip=0x7f0c001f;
+        public static final int edtTripName=0x7f0c0081;
+        public static final int email_btn=0x7f0c0097;
+        public static final int email_btn_mod=0x7f0c009a;
+        public static final int exit=0x7f0c0095;
+        public static final int exitApp=0x7f0c0091;
+        public static final int f=0x7f0c0076;
+        public static final int f_mod=0x7f0c006b;
+        public static final int food=0x7f0c0075;
+        public static final int food_mod=0x7f0c006a;
         public static final int grayscale=0x7f0c0015;
         public static final int holo_dark=0x7f0c0007;
         public static final int holo_light=0x7f0c0008;
         public static final int hybrid=0x7f0c0003;
-        public static final int imageLogo=0x7f0c0046;
-        public static final int imageMeeting=0x7f0c0047;
-        public static final int imageParty=0x7f0c004b;
-        public static final int imageTrip=0x7f0c0049;
-        public static final int location=0x7f0c0075;
-        public static final int location_et=0x7f0c0076;
+        public static final int imageLogo=0x7f0c0045;
+        public static final int imageMeeting=0x7f0c0046;
+        public static final int imageParty=0x7f0c004a;
+        public static final int imageTrip=0x7f0c0048;
+        public static final int location=0x7f0c0071;
+        public static final int location_et=0x7f0c0072;
         public static final int location_et_mod=0x7f0c0067;
-        public static final int location_mod=0x7f0c0065;
-        public static final int map=0x7f0c002d;
-        public static final int map2=0x7f0c002f;
+        public static final int location_mod=0x7f0c0066;
+        public static final int map=0x7f0c002c;
+        public static final int map2=0x7f0c002e;
         public static final int match_parent=0x7f0c000e;
-        public static final int meetingDescriptionEnter=0x7f0c005d;
-        public static final int meetingDescriptionTxt=0x7f0c005c;
-        public static final int meetingEmailTxt=0x7f0c005e;
-        public static final int meetingLocationEnter=0x7f0c005b;
-        public static final int meetingLocationTxt=0x7f0c005a;
-        public static final int meetingSubjectEnter=0x7f0c0053;
-        public static final int meetingSubjectTxt=0x7f0c0052;
+        public static final int meetingDescriptionEnter=0x7f0c005c;
+        public static final int meetingDescriptionTxt=0x7f0c005b;
+        public static final int meetingEmailTxt=0x7f0c005d;
+        public static final int meetingLocationEnter=0x7f0c005a;
+        public static final int meetingLocationTxt=0x7f0c0059;
+        public static final int meetingSubjectEnter=0x7f0c0052;
+        public static final int meetingSubjectTxt=0x7f0c0051;
         public static final int monochrome=0x7f0c0016;
-        public static final int myDatePickerButton=0x7f0c0054;
-        public static final int myDatePickerButton_mod=0x7f0c0066;
-        public static final int myLinearLayout=0x7f0c0045;
+        public static final int myDatePickerButton=0x7f0c0053;
+        public static final int myDatePickerButton_mod=0x7f0c0062;
+        public static final int myLinearLayout=0x7f0c0044;
         public static final int none=0x7f0c0002;
         public static final int normal=0x7f0c0004;
-        public static final int notes=0x7f0c0021;
-        public static final int partyComment_id=0x7f0c0084;
-        public static final int partyDressing_id=0x7f0c0083;
-        public static final int partyFood_id=0x7f0c0082;
-        public static final int partyList_id=0x7f0c0031;
-        public static final int partyLocation_id=0x7f0c0081;
-        public static final int partyTheme=0x7f0c0073;
-        public static final int partyTheme_et=0x7f0c0074;
-        public static final int partyTheme_et_mod=0x7f0c0063;
-        public static final int partyTheme_id=0x7f0c0080;
-        public static final int partyTheme_mod=0x7f0c0062;
-        public static final int party_id=0x7f0c007f;
-        public static final int picParty=0x7f0c0072;
-        public static final int picParty_mod=0x7f0c0061;
+        public static final int notes=0x7f0c0020;
+        public static final int partyComment_id=0x7f0c007a;
+        public static final int partyDate_id=0x7f0c0079;
+        public static final int partyDressing_id=0x7f0c007c;
+        public static final int partyFood_id=0x7f0c007d;
+        public static final int partyList_id=0x7f0c0030;
+        public static final int partyLocation_id=0x7f0c007b;
+        public static final int partyTheme=0x7f0c006d;
+        public static final int partyTheme_et=0x7f0c006e;
+        public static final int partyTheme_et_mod=0x7f0c0061;
+        public static final int partyTheme_id=0x7f0c0078;
+        public static final int partyTheme_mod=0x7f0c0060;
+        public static final int party_id=0x7f0c0077;
+        public static final int picParty=0x7f0c006c;
+        public static final int picParty_mod=0x7f0c005f;
         public static final int production=0x7f0c0009;
-        public static final int relativeLayout1=0x7f0c0071;
-        public static final int relativeLayout_mod=0x7f0c0060;
         public static final int sandbox=0x7f0c000a;
         public static final int satellite=0x7f0c0005;
-        public static final int saving=0x7f0c0099;
-        public static final int scrollView1=0x7f0c0022;
+        public static final int save_btn=0x7f0c0096;
+        public static final int save_btn_mod=0x7f0c0099;
+        public static final int saving=0x7f0c0092;
+        public static final int scrollView1=0x7f0c0021;
         public static final int selectionDetails=0x7f0c000d;
-        public static final int sendEmail=0x7f0c009a;
-        public static final int showMyDate=0x7f0c0055;
-        public static final int showMyDate_mod=0x7f0c0064;
-        public static final int showTimeFrom=0x7f0c0056;
-        public static final int showTimeTo=0x7f0c0058;
-        public static final int slide=0x7f0c0017;
-        public static final int streetAddress=0x7f0c001b;
+        public static final int sendEmail=0x7f0c0093;
+        public static final int showMyDate=0x7f0c0054;
+        public static final int showMyDate_mod=0x7f0c0063;
+        public static final int showTimeFrom=0x7f0c0055;
+        public static final int showTimeTo=0x7f0c0057;
+        public static final int streetAddress=0x7f0c001a;
         public static final int strict_sandbox=0x7f0c000b;
-        public static final int tab1=0x7f0c002c;
-        public static final int tab2=0x7f0c002e;
-        public static final int tabhost=0x7f0c002b;
+        public static final int tab1=0x7f0c002b;
+        public static final int tab2=0x7f0c002d;
+        public static final int tabhost=0x7f0c002a;
         public static final int terrain=0x7f0c0006;
-        public static final int textView1=0x7f0c0034;
-        public static final int title=0x7f0c0051;
-        public static final int txtBudget=0x7f0c004f;
-        public static final int txtCity=0x7f0c003c;
-        public static final int txtCostPerNight=0x7f0c0040;
-        public static final int txtCostPerPerson=0x7f0c0043;
-        public static final int txtDestName=0x7f0c0036;
-        public static final int txtDestinationHeader=0x7f0c0018;
-        public static final int txtDestinationName=0x7f0c0019;
-        public static final int txtExpenses=0x7f0c008c;
-        public static final int txtFinalCost=0x7f0c0033;
-        public static final int txtFinalCostHeader=0x7f0c0032;
-        public static final int txtFuelCost=0x7f0c008d;
-        public static final int txtHotelInfoDisplay=0x7f0c0037;
-        public static final int txtHotelName=0x7f0c0038;
-        public static final int txtMyTrip=0x7f0c0086;
-        public static final int txtNumNights=0x7f0c003e;
-        public static final int txtNumPeopleDisplay=0x7f0c0089;
-        public static final int txtStreetAddress=0x7f0c003a;
-        public static final int txtTotalFuelCost=0x7f0c0090;
-        public static final int txtTrip=0x7f0c0028;
-        public static final int txtTripHeader=0x7f0c0085;
-        public static final int txtTripName=0x7f0c0035;
-        public static final int txtTripNameDisplay=0x7f0c0087;
-        public static final int txtViewExpenseHeader=0x7f0c0092;
-        public static final int txtViewExpenseType=0x7f0c0093;
-        public static final int txtViewExpenses=0x7f0c0091;
-        public static final int txtViewGasPrice=0x7f0c008e;
-        public static final int txtViewItemCost=0x7f0c0095;
-        public static final int txtZip=0x7f0c003d;
-        public static final int txtcalcCostPerPerson=0x7f0c0044;
-        public static final int update_bt=0x7f0c006f;
-        public static final int viewMeeting=0x7f0c009b;
+        public static final int textView1=0x7f0c0033;
+        public static final int title=0x7f0c0050;
+        public static final int txtBudget=0x7f0c004e;
+        public static final int txtCity=0x7f0c003b;
+        public static final int txtCostPerNight=0x7f0c003f;
+        public static final int txtCostPerPerson=0x7f0c0042;
+        public static final int txtDestName=0x7f0c0035;
+        public static final int txtDestinationHeader=0x7f0c0017;
+        public static final int txtDestinationName=0x7f0c0018;
+        public static final int txtExpenses=0x7f0c0085;
+        public static final int txtFinalCost=0x7f0c0032;
+        public static final int txtFinalCostHeader=0x7f0c0031;
+        public static final int txtFuelCost=0x7f0c0086;
+        public static final int txtHotelInfoDisplay=0x7f0c0036;
+        public static final int txtHotelName=0x7f0c0037;
+        public static final int txtMyTrip=0x7f0c007f;
+        public static final int txtNumNights=0x7f0c003d;
+        public static final int txtNumPeopleDisplay=0x7f0c0082;
+        public static final int txtStreetAddress=0x7f0c0039;
+        public static final int txtTotalFuelCost=0x7f0c0089;
+        public static final int txtTrip=0x7f0c0027;
+        public static final int txtTripHeader=0x7f0c007e;
+        public static final int txtTripName=0x7f0c0034;
+        public static final int txtTripNameDisplay=0x7f0c0080;
+        public static final int txtViewExpenseHeader=0x7f0c008b;
+        public static final int txtViewExpenseType=0x7f0c008c;
+        public static final int txtViewExpenses=0x7f0c008a;
+        public static final int txtViewGasPrice=0x7f0c0087;
+        public static final int txtViewItemCost=0x7f0c008e;
+        public static final int txtZip=0x7f0c003c;
+        public static final int txtcalcCostPerPerson=0x7f0c0043;
+        public static final int viewMeeting=0x7f0c0094;
+        public static final int view_Party_btn=0x7f0c0098;
         public static final int wrap_content=0x7f0c000f;
-        public static final int zip=0x7f0c001f;
+        public static final int zip=0x7f0c001e;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f090000;
@@ -694,15 +685,17 @@ containing a value of this type.
         public static final int main=0x7f0b0000;
         public static final int maininterface=0x7f0b0001;
         public static final int meeting=0x7f0b0002;
-        public static final int tripcosts=0x7f0b0003;
+        public static final int menuextra=0x7f0b0003;
+        public static final int menuextramod=0x7f0b0004;
+        public static final int tripcosts=0x7f0b0005;
     }
     public static final class raw {
         public static final int gtm_analytics=0x7f050000;
     }
     public static final class string {
         public static final int accept=0x7f070002;
-        public static final int action_settings=0x7f070028;
-        public static final int app_name=0x7f070026;
+        public static final int action_settings=0x7f070025;
+        public static final int app_name=0x7f070023;
         /**   Text for notification shown when the Android Wear apps needs to be updated. Only shown on the wearable. [CHAR LIMIT=NONE] 
          */
         public static final int common_android_wear_notification_needs_update_text=0x7f070009;
@@ -772,12 +765,6 @@ containing a value of this type.
         /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=42] 
          */
         public static final int common_google_play_services_notification_ticker=0x7f070006;
-        /**  Message in confirmation dialog informing the user that the account could not be signed in. [CHAR LIMIT=NONE] 
-         */
-        public static final int common_google_play_services_sign_in_failed_text=0x7f070024;
-        /**  Title of confirmation dialog informing the user that the account could not be signed in. [CHAR LIMIT=40] 
-         */
-        public static final int common_google_play_services_sign_in_failed_title=0x7f070023;
         /**  Message in confirmation dialog informing user there is an unknown issue in Google Play
         services [CHAR LIMIT=NONE] 
          */
@@ -808,19 +795,16 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f070020;
-        /**  Message in confirmation dialog informing the user that one of the APIs they attepmt to access is not available. [CHAR LIMIT=NONE] 
-         */
-        public static final int commono_google_play_services_api_unavailable_text=0x7f070022;
         public static final int create_calendar_message=0x7f070005;
         public static final int create_calendar_title=0x7f070004;
         public static final int decline=0x7f070003;
-        public static final int hello_world=0x7f070027;
+        public static final int hello_world=0x7f070024;
         public static final int store_picture_message=0x7f070001;
         public static final int store_picture_title=0x7f070000;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */
-        public static final int wallet_buy_button_place_holder=0x7f070025;
+        public static final int wallet_buy_button_place_holder=0x7f070022;
     }
     public static final class style {
         /** 
@@ -936,38 +920,6 @@ containing a value of this type.
           @attr name com.example.eventtrackermap:adUnitId
         */
         public static final int AdsAttrs_adUnitId = 2;
-        /**  Attributes that can be specified to define a custom theme 
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #CustomWalletTheme_windowTransitionStyle com.example.eventtrackermap:windowTransitionStyle}</code></td><td> Defines the set of transition to be used between activities </td></tr>
-           </table>
-           @see #CustomWalletTheme_windowTransitionStyle
-         */
-        public static final int[] CustomWalletTheme = {
-            0x7f010025
-        };
-        /**
-          <p>
-          @attr description
-           Defines the set of transition to be used between activities 
-
-
-          <p>Must be one of the following constant values.</p>
-<table>
-<colgroup align="left" />
-<colgroup align="left" />
-<colgroup align="left" />
-<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-<tr><td><code>slide</code></td><td>1</td><td></td></tr>
-<tr><td><code>none</code></td><td>2</td><td></td></tr>
-</table>
-          <p>This is a private symbol.
-          @attr name com.example.eventtrackermap:windowTransitionStyle
-        */
-        public static final int CustomWalletTheme_windowTransitionStyle = 0;
         /**  Attributes for LoadingImageView 
            <p>Includes the following attributes:</p>
            <table>

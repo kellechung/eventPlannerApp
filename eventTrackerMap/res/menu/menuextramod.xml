@@ -1,0 +1,22 @@
+<menu 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+  <item
+        android:id="@+id/save_btn_mod"
+        android:title="save"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_save"/>
+   <item
+        android:id="@+id/email_btn_mod"
+        android:title="email"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_email"
+       />
+    <item
+        android:id="@+id/delete_btn"
+        android:title="delete"
+        android:showAsAction="always"
+        android:icon="@drawable/delete"
+        />
+ </menu>  
+  

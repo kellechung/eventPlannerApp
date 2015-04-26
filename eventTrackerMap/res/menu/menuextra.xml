@@ -1,0 +1,22 @@
+<menu 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+  <item
+        android:id="@+id/save_btn"
+        android:title="save"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_save"/>
+   <item
+        android:id="@+id/email_btn"
+        android:title="email"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_email"
+       />
+    <item
+        android:id="@+id/view_Party_btn"
+        android:title="viewParty"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_collection"
+        />
+ </menu>  
+  

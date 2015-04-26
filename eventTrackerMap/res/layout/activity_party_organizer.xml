@@ -7,7 +7,7 @@
     android:padding="10dp">
 
     <Button
-        android:id="@+id/addParty_bt_id"
+        android:id="@+id/addParty_btn_id"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="ADD PARTY" />
