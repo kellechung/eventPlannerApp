@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.*;
 
+//This class calculates the final trip cost
+
 public class tripCosts extends Activity implements OnClickListener {
 
 	TextView txtFinalCost;
