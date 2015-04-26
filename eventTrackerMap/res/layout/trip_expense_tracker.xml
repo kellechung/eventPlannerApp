@@ -9,20 +9,68 @@
     android:paddingTop="@dimen/activity_horizontal_margin" >
 
     <TextView
-        android:id="@+id/txtViewExpenseHeader"
+        android:id="@+id/txtExpenses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Track your trip expenses"
+        android:text="Fuel Expense"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/txtItemCostDesc"
+        android:id="@+id/txtFuelCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Track miscellaneous costs"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/txtViewGasPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Gas Price ($):"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <EditText
+            android:id="@+id/edtGasPrice"
+            android:layout_width="82dp"
+            android:layout_height="wrap_content"
+            android:ems="6" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtTotalFuelCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txtViewExpenses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Extra expenses"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtViewExpenseHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Account for extra expenses like museum tickets, hotel stays etc"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="12sp"
+        android:textColor="#3399FF"
         android:textStyle="italic" />
 
     <LinearLayout
@@ -37,7 +85,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:text="Item Name:"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
             android:id="@+id/edtTextItemName"
@@ -56,22 +104,26 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/txtItemCost"
-            android:layout_width="100dp"
+            android:id="@+id/txtViewItemCost"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:text="Item Cost:"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/edtItemCost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10"
-            android:inputType="numberDecimal" />
+            android:ems="10" >
 
+            <requestFocus />
+        </EditText>
     </LinearLayout>
-        <LinearLayout
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
@@ -105,11 +157,14 @@
             android:text="Delete" />
     </LinearLayout>
 
-    <TwoLineListItem
-        android:layout_width="284dp"
-        android:layout_height="227dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin" />
+    <ListView
+        android:id="@id/android:list"
+        android:layout_width="wrap_content"
+        android:layout_height="87dp"
+        android:drawSelectorOnTop="false"
+        android:scrollbars="vertical"
+        android:textSize="10sp" >
+    </ListView>
 
     <Button
         android:id="@+id/btnNext"

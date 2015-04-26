@@ -1,45 +1,51 @@
 package com.example.eventtrackermap;
 
 import android.app.Activity;
+import android.database.*;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.util.Log;
+import android.view.*;
 import android.widget.*;
 import android.view.View.OnClickListener;
-
 import java.util.*;
+import android.content.*;
 
 public class Destination extends ListActivity implements OnClickListener {
 
-	// Android widgets
-	/**
-	 * private TextView textDestinationHeader, txtDestinationName,
-	 * streetAddress, city, notes, txtTrip;
-	 **/
-
-	// ScrollView scrollView1;
+	// Declaring widgets
+	
 	ListView list;
 	EditText destName, edtTextZip, edtTextMemos, edtTextStreetAdress,
 			edtTextCity;
 	Button btnAdd, btnUpdate, btnSave, btnNext, btnDelete, btnMapView;
-
 	String dName, streetAdd, city, memos, zip;
 	place newDest;
-	int itemPos; // to keep track of destination number in list
+	String tName;
+
 
 	// ArrayList of type place to store multiple destinations for a given trip
 	private ArrayList<place> destination = new ArrayList<place>();
 	ArrayList<String> placeName = new ArrayList<String>();
 	ArrayAdapter<String> aa;
+	int itemPos; // to keep track of destination number in list
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_destination);
 
+		
+		//Getting trip info from trip class through intent
+		Intent fromTrip = getIntent(); 
+		tName = fromTrip.getStringExtra("tripVal");
+		int nPeople = fromTrip.getIntExtra("peopleVal", 1);
+
+		
+
+		TextView txtDestinationHeader = (TextView) findViewById(R.id.txtDestinationHeader);
+		txtDestinationHeader.setText(tName);
 		destName = (EditText) findViewById(R.id.edtTextDestinationName);
 		edtTextZip = (EditText) findViewById(R.id.edtTextZip);
 		edtTextMemos = (EditText) findViewById(R.id.edtTextMemos);
@@ -53,7 +59,6 @@ public class Destination extends ListActivity implements OnClickListener {
 		btnMapView = (Button) findViewById(R.id.btnMapView);
 
 		// List adapter configuration
-
 		aa = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, placeName);
 
@@ -75,25 +80,6 @@ public class Destination extends ListActivity implements OnClickListener {
 
 	}
 
-	/**
-	 * @Override public boolean onCreateOptionsMenu(Menu menu) { // Inflate the
-	 *           menu; this adds items to the action bar if it is present.
-	 *           getMenuInflater().inflate(R.menu.destination, menu); return
-	 *           true; }
-	 **/
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 	public void onClick(View v) {
 
 		// getting the user inputs
@@ -101,7 +87,7 @@ public class Destination extends ListActivity implements OnClickListener {
 		streetAdd = edtTextStreetAdress.getText().toString();
 		city = edtTextCity.getText().toString();
 		memos = edtTextMemos.getText().toString();
-		zip = edtTextMemos.getText().toString();
+		zip = edtTextZip.getText().toString();
 
 		switch (v.getId()) {
 
@@ -121,7 +107,6 @@ public class Destination extends ListActivity implements OnClickListener {
 			aa.notifyDataSetChanged();
 			Toast.makeText(this, newDest.getDestinationName(),
 					Toast.LENGTH_SHORT).show();
-
 			clear();
 			break;
 		}
@@ -150,9 +135,8 @@ public class Destination extends ListActivity implements OnClickListener {
 
 		}
 
-		// clicking on next button will bring the user to the hotel activity
 		case (R.id.btnNext): {
-
+			// clicking on next button will bring the user to the hotel activity
 			// Need to add a check here for empty destination
 			Bundle b = new Bundle();
 			b.putString("cityName", city);
@@ -161,14 +145,25 @@ public class Destination extends ListActivity implements OnClickListener {
 			b.putString("zipCode", zip);
 			b.putStringArrayList("destList", placeName);
 
-			Intent i = new Intent(this, hotelActivity.class);
-			i.putExtras(b);
-			startActivity(i);
+			ArrayList<String> dList = new ArrayList<String>();
+			for (int i = 0; i < destination.size(); i++) {
+				dList.add(destination.get(i).getAddress());
+			}
+
+			Intent tripE = new Intent(this, tripExpense.class);
+			tripE.putStringArrayListExtra("destinationList", dList);
+			startActivity(tripE);
+
 			break;
+
 		}
+		
+		
+		
 
 		case (R.id.btnMapView): {
-
+			// On click, it brings the user to map view
+			// Map has the destinations entered by user as markers
 			if (destination == null)
 				Toast.makeText(this, "There are no destination name",
 						Toast.LENGTH_SHORT).show();
@@ -176,10 +171,11 @@ public class Destination extends ListActivity implements OnClickListener {
 			else {
 
 				ArrayList<String> dList = new ArrayList<String>();
-				for (int i = 0; i <destination.size();i++) {dList.add(destination.get(i).getAddress());}
-				
-				
-				Intent mapView = new Intent(this, MainActivity.class);
+				for (int i = 0; i < destination.size(); i++) {
+					dList.add(destination.get(i).getAddress());
+				}
+
+				Intent mapView = new Intent(this, MapCreate.class);
 				mapView.putStringArrayListExtra("destinationList", dList);
 				startActivity(mapView);
 			}
@@ -192,7 +188,6 @@ public class Destination extends ListActivity implements OnClickListener {
 
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		// String dName = placeName.get(position);
 		itemPos = position;
 		Toast.makeText(this, "Position " + itemPos, Toast.LENGTH_SHORT).show();
 		destName.setText(placeName.get(itemPos));
@@ -203,9 +198,8 @@ public class Destination extends ListActivity implements OnClickListener {
 
 	}
 
-	// Clear() resets the edit texts so user can add new inputs
+	// Clear() resets edit texts
 	public void clear() {
-
 		destName.setText("");
 		edtTextZip.setText("");
 		edtTextMemos.setText("");

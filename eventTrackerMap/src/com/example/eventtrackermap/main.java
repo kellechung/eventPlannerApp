@@ -64,7 +64,7 @@ public class main extends Activity implements OnClickListener, OnInitListener {
 
 		// case 2, click on button Trip
 		case R.id.btnTrip:
-			Intent i2 = new Intent(main.this, Destination.class);
+			Intent i2 = new Intent(main.this, tripCreator.class);
 			speak("Now you are able to create a new trip");
 			startActivity(i2);
 			break;

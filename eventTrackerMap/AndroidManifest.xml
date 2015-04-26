@@ -31,7 +31,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".MapCreate"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".tripCosts"
             android:label="@string/app_name" >
         </activity>
         <activity
@@ -54,7 +58,15 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name=".tripExpense"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name=".Modify_party"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".tripCreator"
             android:label="@string/app_name" >
         </activity>
 

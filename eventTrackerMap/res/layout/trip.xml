@@ -31,7 +31,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/edtTripName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" >
@@ -39,33 +39,7 @@
         <requestFocus />
     </EditText>
 
-    <TextView
-        android:id="@+id/txtFromDateDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Depart Date"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <EditText
-        android:id="@+id/edtTextFromDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date" />
-
-    <TextView
-        android:id="@+id/txtToDateDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Return Date"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <EditText
-        android:id="@+id/edtTextToDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date" />
+   
 
     <TextView
         android:id="@+id/txtNumPeopleDisplay"
@@ -75,36 +49,16 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/edtNumPeople"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number" />
 
-    <TextView
-        android:id="@+id/txttripTypeDisplay"
+    <Button
+        android:id="@+id/btnCreateTrip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Transportation type"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-   <RadioGroup
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <RadioButton
-            android:id="@+id/radioGround"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ground" />
-
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Air" />
-
-    </RadioGroup>
+        android:text="Create" />
 
 </LinearLayout>
