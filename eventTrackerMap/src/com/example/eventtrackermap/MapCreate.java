@@ -99,13 +99,13 @@ public class MapCreate extends Activity {
 				.getMap();
 		myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-				42.357267, -71.062403), 10f));
+				38, -97), 3f));
 
 		myMap2 = ((MapFragment) getFragmentManager()
 				.findFragmentById(R.id.map2)).getMap();
 		myMap2.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 		myMap2.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-				42.357267, -71.062403), 10f));
+				38, -97), 3f));
 	
 
 		for (int i = 0; i < addressBook.length; i++) {
