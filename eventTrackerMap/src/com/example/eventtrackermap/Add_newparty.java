@@ -1,6 +1,5 @@
 package com.example.eventtrackermap;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.app.Activity;
@@ -220,13 +219,14 @@ public void sendEmail(){			//this creates an String[] array with size()
 
     //insert recipients, subject and text content
     emailIntent.putExtra(Intent.EXTRA_SUBJECT, partyTheme);
-    emailIntent.putExtra(Intent.EXTRA_TEXT, "Party invitation"+"\n"+"\n"+
+    emailIntent.putExtra(Intent.EXTRA_TEXT, "Hi, you are invited to our party."+"\n"+"\n"+
     					"Subject: "+ partyTheme +"\n"+			
     					"Date: "+ date + "\n"+			
    		  				"Detail: "+ comment + "\n" +
     					"Location: " + location + "\n" +
   		  				"Dress code: "+ dressing + "\n"+ 
-    					"Food: "+ food[food_idx] + "\n" + "\n"); 
+    					"Food: "+ food[food_idx] + "\n" + "\n" +
+    					"Please respond to this email if you have further inquiry. Thank you!"); 
 
     
     try {
