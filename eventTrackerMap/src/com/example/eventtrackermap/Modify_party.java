@@ -246,7 +246,8 @@ public void sendEmail(){
   		    		}
   	  else{
   	  startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-        finish();
+  	 
+  	  finish();
         Log.i("Finished sending email...", "");}
     } catch (android.content.ActivityNotFoundException ex) {
        Toast.makeText(this, 

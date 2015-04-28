@@ -238,6 +238,7 @@ public void sendEmail(){			//this creates an String[] array with size()
   		    		}
   	  else{
   		startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+  	
         finish();
         Log.i("Finished sending email...", "");}
     } catch (android.content.ActivityNotFoundException ex) {

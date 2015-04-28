@@ -65,7 +65,7 @@ public class tripCosts extends Activity implements OnClickListener {
 		double costPerPerson = finalCost/numPeople;	
 		String extraText = "Details for : " + tripName + "\n \n"
 				+ "Destinations: " + " \n" + dName + "\n \n"
-				+ "Total Trip Cost : " + txtFinalCost.getText().toString()
+				+ "Total Trip Cost : " +  f.format(finalCost)
 				+ "\n"
 				+ "Number of people going: "+ numPeople + "\n"
 				+ "Cost Per Person : " + f.format(costPerPerson);
