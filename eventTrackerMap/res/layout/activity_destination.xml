@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add destination to trip"
+        android:textColor="#a4c639"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textStyle="italic" />
 
@@ -125,30 +126,32 @@
         <Button
             android:id="@+id/btnAdd"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="76dp"
+            android:layout_width="86dp"
             android:layout_height="wrap_content"
             android:text="Add" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
 
         <Button
             android:id="@+id/btnUpdate"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+            android:layout_width="82dp"
             android:layout_height="wrap_content"
             android:text="Update" />
 
-        <Button
-            android:id="@+id/btnSave"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:text="Save" />
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
 
         <Button
             android:id="@+id/btnDelete"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+            android:layout_width="76dp"
             android:layout_height="wrap_content"
             android:text="Delete" />
+
     </LinearLayout>
 
     <TextView
@@ -178,15 +181,23 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="0.26"
+            android:background="#a4c639"
             android:text="View On Map" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.26" />
 
         <Button
             android:id="@+id/btnNext"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Next"
-            android:textStyle="bold" />
+            android:layout_weight="0.51"
+            android:background="#a4c639"
+            android:text="Next" />
 
     </LinearLayout>
 

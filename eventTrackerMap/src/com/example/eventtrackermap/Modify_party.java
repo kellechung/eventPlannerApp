@@ -1,8 +1,7 @@
 package com.example.eventtrackermap;
+
 import java.util.ArrayList;
 import java.util.Calendar;
-
-
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -17,11 +16,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -29,7 +26,22 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Modify_party extends Activity implements OnItemSelectedListener{
+import java.io.IOException;
+import java.util.List;
+ 
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
+ 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+ 
+
+public class Modify_party extends FragmentActivity implements OnItemSelectedListener{
 	SQLController dbcon;
 	EditText partyTheme_et, comment_et, location_et, dressing_et;
 	TextView date_tv;
@@ -45,6 +57,11 @@ public class Modify_party extends Activity implements OnItemSelectedListener{
 	private ArrayList<String> emails;
 	private static final String DEBUG_TAG = "email_Tag";
 	
+	GoogleMap googleMap;
+	MarkerOptions markerOptions;
+	LatLng latLng;
+	private static final float zoom = 15.0f;
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
@@ -53,6 +70,11 @@ public class Modify_party extends Activity implements OnItemSelectedListener{
 		dbcon = new SQLController(this);//back end assigning Context, attach it to dbcon SQLController
 		dbcon.open();
 		
+		SupportMapFragment supportMapFragment = (SupportMapFragment)
+		        getSupportFragmentManager().findFragmentById(R.id.map_mod);
+		        // Getting a reference to the map
+		        googleMap = supportMapFragment.getMap();
+		        
 		emails = new ArrayList<String>();
 		
 		partyTheme_et = (EditText) findViewById(R.id.partyTheme_et_mod);
@@ -100,7 +122,12 @@ public class Modify_party extends Activity implements OnItemSelectedListener{
 		//partyFood is a String consists of integer, so parse it
 		int pre_select = Integer.parseInt(partyFood);
 		spin.setSelection(pre_select);//pre_select is a integer been transferred around
-
+		
+		/*map creation*/
+		String location = location_et.getText().toString();
+		if(location!=null && !location.equals("")){
+            new GeocoderTask().execute(location);
+		}
 	}    //onCreate end
 	
 	private void updateDisplay() {
@@ -291,8 +318,56 @@ public void sendEmail(){			//this creates an String[] array with size()
 
 		startActivity(home_intent);
 	}
-		
 	
+private class GeocoderTask extends AsyncTask<String, Void, List<Address>>{
+		
+		protected List<Address> doInBackground(String... locationName) {
+            // Creating an instance of Geocoder class
+            Geocoder geocoder = new Geocoder(getBaseContext());
+            List<Address> addresses = null;
+ 
+            try {
+                // Getting a maximum of 3 Address that matches the input text
+                addresses = geocoder.getFromLocationName(locationName[0], 3);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return addresses;
+        }
+		
+		protected void onPostExecute(List<Address> addresses) {
+			 
+            if(addresses==null || addresses.size()==0){
+                Toast.makeText(getBaseContext(), "No Location found", Toast.LENGTH_SHORT).show();
+                return;
+            }
+ 
+            // Clears all the existing markers on the map
+            googleMap.clear();
+ 
+            // Adding Markers on Google Map for each matching address
+            for(int i=0;i<addresses.size();i++){
+ 
+                Address address = (Address) addresses.get(i);
+ 
+                // Creating an instance of GeoPoint, to display in Google Map
+                latLng = new LatLng(address.getLatitude(), address.getLongitude());
+ 
+                String addressText = String.format("%s, %s",
+                address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
+                address.getCountryName());
+ 
+                markerOptions = new MarkerOptions();
+                markerOptions.position(latLng);
+                markerOptions.title(addressText);
+ 
+                googleMap.addMarker(markerOptions);
+ 
+                // Locate the first location
+                if(i==0)
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom((latLng), zoom));
+            }
+		}
+	}
 }
-
 

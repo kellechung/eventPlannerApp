@@ -9,6 +9,6 @@ package com.example.eventtrackermap;
 
 public final class Manifest {
     public static final class permission {
-        public static final String READ_GSERVICES="com.google.android.providers.gsf.permission.READ_GSERVICES";
+        public static final String MAPS_RECEIVE="com.example.partymode.permission.MAPS_RECEIVE";
     }
 }

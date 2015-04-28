@@ -5,9 +5,11 @@ import java.util.Calendar;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -35,7 +37,6 @@ import android.widget.Toast;
 import android.view.View.OnClickListener;
 import android.net.Uri;
 
-//testing 1
 
 public class newMeeting extends Activity{
 	
@@ -132,8 +133,6 @@ public class newMeeting extends Activity{
         
      // display the current date right to the calendar image button
         updateDisplay();
-	
-	
     }
      
 
@@ -240,7 +239,7 @@ public class newMeeting extends Activity{
 	        	 viewMeeting();
 	             return true;
 	         case R.id.exit://case 4, press exit button
-	        	 finish();
+	        	 alertExit();
 	             return true;
 	         default:
 	             return super.onOptionsItemSelected(item);
@@ -264,7 +263,8 @@ public class newMeeting extends Activity{
 	      //insert recipients, subject and text content
 	      emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
 	      emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-	      emailIntent.putExtra(Intent.EXTRA_TEXT, "Details of the meeting invitation"+"\n"+"\n"+"Subject: "+subject+"\n"+
+	      emailIntent.putExtra(Intent.EXTRA_TEXT, "Hi, you are invited to attend a study group meeting."+"\n\n"+
+	    		  				"Details of the meeting invitation"+"\n"+"\n"+"Subject: "+subject+"\n"+
 	    		  				"Date: "+ date+ "\n"+ "Duration: "+fromTime+" - "+toTime+ "\n"+"Location: "+location+
 	    		  				"\n"+"Description: "+description+ "\n"+"\n"+"Please respond to this email if you can't attend. Thank you!"); 
 
@@ -337,6 +337,38 @@ public class newMeeting extends Activity{
     	builder.setMessage(message);
     	builder.show();
 	}
+    
+    public void alertExit(){
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Exit without saving?");
+        builder.setMessage("Click NO and your meeting will be automaticaly saved");
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing but close the dialog
+
+                dialog.dismiss();
+                finish();
+            }
+
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing
+                dialog.dismiss();
+                storeMeeting();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+ 
+    }
 
 	  
 	 

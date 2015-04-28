@@ -3,20 +3,17 @@ package com.example.eventtrackermap;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,8 +39,8 @@ static final int DATE_DIALOG_ID = 0;
 private int mYear;
 private int mMonth;
 private int mDay;
-private ArrayList<String> emails;
-private static final String DEBUG_TAG = "email_Tag";
+
+
 
 private NotificationManager mNotificationManager;
 private Notification notifyDetails;
@@ -58,7 +55,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	
 	dbcon = new SQLController(this);//back end assigning Context, attach it to dbcon SQLController
 	dbcon.open();
-	emails = new ArrayList<String>();
+	
 	//items order follows UI design
 	partyTheme_et = (EditText) findViewById(R.id.partyTheme_et);
 	
@@ -182,16 +179,14 @@ public boolean onOptionsItemSelected(MenuItem item) {
 				.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(main);
 		return true;
+	
 	case R.id.email_btn:
-		createNewParty();
-		Intent getContacts = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-        startActivityForResult(getContacts, 1);
 		sendEmail(); 
 		return true;
+	
 	case R.id.view_Party_btn:
-		Intent toMain = new Intent(Add_newparty.this, PartyListMain.class)
-		.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(toMain);
+		alertExit();
+		
 		return true;
 	default:
 		return super.onOptionsItemSelected(item);
@@ -208,60 +203,10 @@ public void createNewParty(){
 							//refer to the controller in the Party.class
 	dbcon.insertData(new Party(partyTheme, date, comment, location, dressing, food_idx));
 	}
-//feedback to StartActivityForResult, request code is 1
-protected void onActivityResult(int reqCode, int resultCode, Intent data)
-	{
- if (resultCode == RESULT_OK) {
-        switch (reqCode) 
-        {
-        case 1:
-            Cursor cursor = null;
-            String email = "";
-            try {
-                Uri result = data.getData();//contact's complete uri
-                Log.v(DEBUG_TAG, "Got a contact result: " + result.toString());
 
-                // get the contact id from the Uri
-                String id = result.getLastPathSegment();
-
-                // query for everything email
-                cursor = getContentResolver().query(Email.CONTENT_URI, null, Email.CONTACT_ID + "=?", new String[] { id }, null);
-
-                int emailIdx = cursor.getColumnIndex(Email.DATA);
-
-                // let's just get the first email
-                if (cursor.moveToFirst()) {
-                    email = cursor.getString(emailIdx);
-
-                    Log.v(DEBUG_TAG, "Got email: " + email);
-                } else {
-                    Log.w(DEBUG_TAG, "No results");
-                }
-            } catch (Exception e) {
-                Log.e(DEBUG_TAG, "Failed to get email data", e);
-            } finally {
-                if (cursor != null) {	                	
-                    cursor.close();
-                }		                
-                if(email!=""){
-                	emails.add(email);
-                	}
-                else if (email.length() == 0) 
-                {
-                    Toast.makeText(this, "No Email for Selected Contact",Toast.LENGTH_LONG).show();
-                }
-            }
-            break;
-        }
-
-    } else {
-        Log.w(DEBUG_TAG, "Warning: activity result not ok");
-    }
-	}
 
 
 public void sendEmail(){			//this creates an String[] array with size()
-	String[] TO = emails.toArray(new String[emails.size()]);
 	String partyTheme = partyTheme_et.getText().toString();
 	String date = meetingDate.getText().toString();
 	String comment = comment_et.getText().toString();
@@ -274,7 +219,6 @@ public void sendEmail(){			//this creates an String[] array with size()
     emailIntent.setType("text/plain");
 
     //insert recipients, subject and text content
-    emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
     emailIntent.putExtra(Intent.EXTRA_SUBJECT, partyTheme);
     emailIntent.putExtra(Intent.EXTRA_TEXT, "Party invitation"+"\n"+"\n"+
     					"Subject: "+ partyTheme +"\n"+			
@@ -284,22 +228,58 @@ public void sendEmail(){			//this creates an String[] array with size()
   		  				"Dress code: "+ dressing + "\n"+ 
     					"Food: "+ food[food_idx] + "\n" + "\n"); 
 
+    
     try {
-  	  if(partyTheme.trim().length()==0 || date.trim().length()==0|| comment.trim().length()==0 ||
-  			  location.trim().length()==0 || dressing.trim().length()==0 || food[food_idx].trim().length()==0)
+  	  if(partyTheme.trim().length()==0|| date.trim().length()==0|| comment.trim().length()==0||
+  			location.trim().length()==0|| dressing.trim().length()==0)
   		    		{
-  				  		Toast.makeText(this, 
+  				  		Toast.makeText(Add_newparty.this, 
   					         "Please enter all information required.", Toast.LENGTH_SHORT).show();
   		    		}
   	  else{
-  	  startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+  		startActivity(Intent.createChooser(emailIntent, "Send mail..."));
         finish();
         Log.i("Finished sending email...", "");}
     } catch (android.content.ActivityNotFoundException ex) {
-       Toast.makeText(this, 
+       Toast.makeText(Add_newparty.this, 
        "There is no email client installed.", Toast.LENGTH_SHORT).show();
     }
+    
  }
+
+
+public void alertExit(){
+	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+    builder.setTitle("Exit without saving?");
+    builder.setMessage("Click NO and your party will be automaticaly saved");
+
+    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+        public void onClick(DialogInterface dialog, int which) {
+            // Do nothing but close the dialog
+
+            dialog.dismiss();
+            finish();
+        }
+
+    });
+
+    builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            // Do nothing
+            dialog.dismiss();
+            //when clicked yes in the dialog, it will save the existing input
+          
+        }
+    });
+
+    AlertDialog alert = builder.create();
+    alert.show();
+}
+
 }//class end
 
 

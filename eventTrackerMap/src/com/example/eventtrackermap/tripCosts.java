@@ -31,6 +31,10 @@ public class tripCosts extends Activity implements OnClickListener {
 	private ListView emailList;
 	private ArrayList<String> emails;
 	private ArrayAdapter<String> aa;
+	ArrayList<String> dest;
+	int numPeople;
+	String tripName;
+	double finalCost;
 
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -42,11 +46,33 @@ public class tripCosts extends Activity implements OnClickListener {
 		emailList.setAdapter(aa);
 
 		Intent i = getIntent();
-		double finalCost = i.getDoubleExtra("totalCost", 0);
-
+		finalCost = i.getDoubleExtra("totalCost", 0);
+		dest = i.getStringArrayListExtra("dest");
+		numPeople = i.getIntExtra("numPeople", 1);
+		tripName = i.getStringExtra("tripName");
+		
 		txtFinalCost = (TextView) findViewById(R.id.txtFinalCost);
+		//txtFinalCost.setText("Costs for : " + tripName + " = " + f.format(finalCost));
+		txtFinalCost.append("\n");
+		
+		
+		String dName = "";
+		for (int j = 0; j < dest.size(); j++) {
+			int index = j + 1;
+			dName = dName + index + ". " + dest.get(j) + "\n";
+		}
 
-		txtFinalCost.setText(f.format(finalCost));
+		double costPerPerson = finalCost/numPeople;	
+		String extraText = "Details for : " + tripName + "\n \n"
+				+ "Destinations: " + " \n" + dName + "\n \n"
+				+ "Total Trip Cost : " + txtFinalCost.getText().toString()
+				+ "\n"
+				+ "Number of people going: "+ numPeople + "\n"
+				+ "Cost Per Person : " + f.format(costPerPerson);
+				
+		txtFinalCost.append(extraText);
+
+		
 	}
 
 	@Override
@@ -62,11 +88,26 @@ public class tripCosts extends Activity implements OnClickListener {
 		emailIntent.setData(Uri.parse("mailto:"));
 		emailIntent.setType("text/plain");
 
+		String dName = "";
+		for (int j = 0; j < dest.size(); j++) {
+			int index = j + 1;
+			dName = dName + index + ". " + dest.get(j) + "\n";
+		}
+
+		double costPerPerson = finalCost/numPeople;	
+		String extraText = "Details for : " + tripName + "\n \n"
+				+ "Destinations: " + " \n" + dName + "\n \n"
+				+ "Total Trip Cost : " + f.format(finalCost)
+				+ "\n"
+				+ "Number of people going: "+ numPeople + "\n"
+				+ "Cost Per Person : " + f.format(costPerPerson) + "\n\n" +
+				"See you there";
+
 		// insert recipients, subject and text content
 		emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-		emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Upcoming trip");
-		emailIntent.putExtra(Intent.EXTRA_TEXT,
-				"Please respond to this email if you can't attend. Thank you!");
+		emailIntent
+				.putExtra(Intent.EXTRA_SUBJECT, "Upcoming trip: " + tripName);
+		emailIntent.putExtra(Intent.EXTRA_TEXT, extraText);
 
 		try {
 
@@ -156,6 +197,17 @@ public class tripCosts extends Activity implements OnClickListener {
 			return true;
 		case PICK2:
 			sendEmail();
+			return true;
+
+		case R.id.sendEmail:
+			sendEmail();
+
+			return true;
+		case R.id.addContact: {
+			Intent addContacts = new Intent(Intent.ACTION_PICK,
+					ContactsContract.Contacts.CONTENT_URI);
+			startActivityForResult(addContacts, PICK_CONTACT_REQUEST);
+		}
 			return true;
 
 		default:

@@ -12,24 +12,7 @@ public class place {
 	String city;
 	String zipCode;
 	String memos;
-	hotelStay hotel;
-
-	// Creating 6 arg constructor for place with instance variables
-	// destinationName,
-	// address and memos
-	public place(String destinationName, String streetName, String city,
-			String zip, String memos, hotelStay hotel)
-
-	{
-
-		this.destinationName = destinationName;
-		this.streetName = streetName;
-		this.city = city;
-		this.zipCode = zip;
-		this.memos = memos;
-		this.hotel = hotel;
-	}
-
+	
 	// Creating a 5 arg constructor for objects place
 	public place(String destinationName, String streetName, String city,
 			String zip, String memos)
@@ -68,8 +51,5 @@ public class place {
 		return this.memos;
 	}
 
-	public hotelStay getHotel() {
-		return this.hotel;
-	}
 
 }

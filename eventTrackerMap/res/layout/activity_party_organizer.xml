@@ -4,13 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@drawable/background_meeting">
 
     <Button
         android:id="@+id/addParty_btn_id"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="ADD PARTY" />
+        android:text="ADD PARTY" 
+        android:textColor="#FFFFFF"/>
 
     <ListView
         android:id="@+id/partyList_id"

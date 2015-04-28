@@ -36,6 +36,11 @@ public class tripExpense extends ListActivity implements OnClickListener {
 	ArrayList<String> expenseList = new ArrayList<String>();
 	int itemPos; // to keep track of destination number in list
 	final double DEFAULT_GAS_PRICE = 2.50;
+	final int AVG_MILES_PER_GALLON = 35;
+	int numPeople;
+	EditText edtMilePerGallon;
+	String tripName;
+	ArrayList<String> placeList; 
 
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -48,9 +53,10 @@ public class tripExpense extends ListActivity implements OnClickListener {
 		edtItemCost = (EditText) findViewById(R.id.edtItemCost);
 		edtGasPrice = (EditText) findViewById(R.id.edtGasPrice);
 		edtGasPrice.setText(DEFAULT_GAS_PRICE + "");
+		edtMilePerGallon = (EditText) findViewById(R.id.edtMilePerGallon);
+		edtMilePerGallon.setText("35");
 		btnAdd = (Button) findViewById(R.id.btnAdd);
 		btnUpdate = (Button) findViewById(R.id.btnUpdate);
-		btnSave = (Button) findViewById(R.id.btnSave);
 		btnDelete = (Button) findViewById(R.id.btnDelete);
 		btnNext = (Button) findViewById(R.id.btnNext);
 
@@ -61,16 +67,18 @@ public class tripExpense extends ListActivity implements OnClickListener {
 
 		Intent mIntent = getIntent(); // get reference to Intent contain
 		// addresses from user
-		ArrayList<String> placeList = mIntent
+		placeList = mIntent
 				.getStringArrayListExtra("destinationList");
-
+		
+		numPeople = mIntent.getIntExtra("numPeople", 1);
+		tripName = mIntent.getStringExtra("tripName");
 		Log.d("ADDRESS", placeList.get(0));
 
-		MapCreate m = new MapCreate();
+		
 		// Storing geocoordinates in array
 		List<LatLng> listLatLng = new ArrayList<LatLng>();
 
-	;
+	
 		for (int j = 0; j < placeList.size(); j++) {
 
 			listLatLng.add(getLatLng(placeList.get(j)));
@@ -87,11 +95,10 @@ public class tripExpense extends ListActivity implements OnClickListener {
 		DecimalFormat f = new DecimalFormat("$##.00");
 
 		txtTotalFuelCost.setText("Total Fuel Cost ($): "
-				+ f.format(totalDistance * DEFAULT_GAS_PRICE));
+				+ f.format(totalDistance * DEFAULT_GAS_PRICE / AVG_MILES_PER_GALLON));
 		btnAdd.setOnClickListener(this);
 		btnUpdate.setOnClickListener(this);
 		btnDelete.setOnClickListener(this);
-		btnSave.setOnClickListener(this);
 		btnNext.setOnClickListener(this);
 
 	}
@@ -100,6 +107,7 @@ public class tripExpense extends ListActivity implements OnClickListener {
 	public void onClick(View v) {
 		String itemName = edtTextItemName.getText().toString();
 		String itemCost = edtItemCost.getText().toString();
+		Double milesPerGallon = Double.parseDouble(edtMilePerGallon.getText().toString());
 		String listItem = "";
 		switch (v.getId()) {
 
@@ -120,6 +128,8 @@ public class tripExpense extends ListActivity implements OnClickListener {
 				Toast.makeText(getApplicationContext(),
 						"Item added to expense list", Toast.LENGTH_SHORT)
 						.show();
+				
+				clear();
 			}
 
 			break;
@@ -139,6 +149,7 @@ public class tripExpense extends ListActivity implements OnClickListener {
 				expenseList.set(itemPos, "ITEM " + itemName + " - $  "
 						+ itemCost);
 				aa.notifyDataSetChanged();
+				clear();
 			}
 			break;
 		}
@@ -150,13 +161,11 @@ public class tripExpense extends ListActivity implements OnClickListener {
 			break;
 		}
 
-		case (R.id.btnSave): {
-			break;
-		}
+	
 
 		case (R.id.btnNext): {
 			Double gasPrice =  Double.parseDouble(edtGasPrice.getText().toString());
-			Double totalGasPrice = totalDistance * gasPrice;
+			Double totalGasPrice = totalDistance * gasPrice / milesPerGallon;
 			
 			double expenses = 0;
 			
@@ -172,10 +181,10 @@ public class tripExpense extends ListActivity implements OnClickListener {
 			Double totalCosts = totalGasPrice + expenses;
 			Intent tripFinal = new Intent(this, tripCosts.class);
 			tripFinal.putExtra("totalCost", totalCosts);
+			tripFinal.putStringArrayListExtra("dest", placeList);
+			tripFinal.putExtra("numPeople", numPeople);
+			tripFinal.putExtra("tripName", tripName);
 			startActivity(tripFinal);
-			
-			
-			
 			break;
 		}
 
@@ -183,10 +192,6 @@ public class tripExpense extends ListActivity implements OnClickListener {
 
 	}
 
-	public void clear() {
-		// Clear() resets the edit texts so user can add new inputs
-
-	}
 
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
@@ -279,4 +284,7 @@ public class tripExpense extends ListActivity implements OnClickListener {
 
 		return (rad * 180 / Math.PI);
 	}
+	
+	public void clear() {edtTextItemName.setText("");
+	edtItemCost.setText("");}
 }

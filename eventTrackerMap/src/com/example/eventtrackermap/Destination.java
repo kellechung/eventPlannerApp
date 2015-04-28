@@ -15,15 +15,15 @@ import android.content.*;
 public class Destination extends ListActivity implements OnClickListener {
 
 	// Declaring widgets
-	
+
 	ListView list;
 	EditText destName, edtTextZip, edtTextMemos, edtTextStreetAdress,
 			edtTextCity;
-	Button btnAdd, btnUpdate, btnSave, btnNext, btnDelete, btnMapView;
+	Button btnAdd, btnUpdate, btnNext, btnDelete, btnMapView;
 	String dName, streetAdd, city, memos, zip;
 	place newDest;
 	String tName;
-
+	int nPeople;
 
 	// ArrayList of type place to store multiple destinations for a given trip
 	private ArrayList<place> destination = new ArrayList<place>();
@@ -36,13 +36,10 @@ public class Destination extends ListActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_destination);
 
-		
-		//Getting trip info from trip class through intent
-		Intent fromTrip = getIntent(); 
+		// Getting trip info from trip class through intent
+		Intent fromTrip = getIntent();
 		tName = fromTrip.getStringExtra("tripVal");
-		int nPeople = fromTrip.getIntExtra("peopleVal", 1);
-
-		
+		nPeople = fromTrip.getIntExtra("peopleVal", 1);
 
 		TextView txtDestinationHeader = (TextView) findViewById(R.id.txtDestinationHeader);
 		txtDestinationHeader.setText(tName);
@@ -53,7 +50,6 @@ public class Destination extends ListActivity implements OnClickListener {
 		edtTextCity = (EditText) findViewById(R.id.edtTextCity);
 		btnAdd = (Button) findViewById(R.id.btnAdd);
 		btnUpdate = (Button) findViewById(R.id.btnUpdate);
-		btnSave = (Button) findViewById(R.id.btnSave);
 		btnNext = (Button) findViewById(R.id.btnNext);
 		btnDelete = (Button) findViewById(R.id.btnDelete);
 		btnMapView = (Button) findViewById(R.id.btnMapView);
@@ -67,7 +63,6 @@ public class Destination extends ListActivity implements OnClickListener {
 		btnAdd.setOnClickListener(this);
 		btnUpdate.setOnClickListener(this);
 		btnDelete.setOnClickListener(this);
-		btnSave.setOnClickListener(this);
 		btnNext.setOnClickListener(this);
 		btnMapView.setOnClickListener(this);
 
@@ -105,7 +100,7 @@ public class Destination extends ListActivity implements OnClickListener {
 			destination.add(newDest);
 			placeName.add(dName);
 			aa.notifyDataSetChanged();
-			Toast.makeText(this, newDest.getDestinationName(),
+			Toast.makeText(this, newDest.getDestinationName() + " added to list",
 					Toast.LENGTH_SHORT).show();
 			clear();
 			break;
@@ -115,7 +110,7 @@ public class Destination extends ListActivity implements OnClickListener {
 			// Allows user to make edits to destination in list
 			placeName.set(itemPos, dName);
 			aa.notifyDataSetChanged();
-			place tempPlace = destination.get(itemPos);
+			place tempPlace = new place(dName, streetAdd, city, zip, memos);
 			destination.set(itemPos, tempPlace);
 			clear();
 			break;
@@ -138,12 +133,6 @@ public class Destination extends ListActivity implements OnClickListener {
 		case (R.id.btnNext): {
 			// clicking on next button will bring the user to the hotel activity
 			// Need to add a check here for empty destination
-			Bundle b = new Bundle();
-			b.putString("cityName", city);
-			b.putString("strAdd", streetAdd);
-			b.putString("memo", memos);
-			b.putString("zipCode", zip);
-			b.putStringArrayList("destList", placeName);
 
 			ArrayList<String> dList = new ArrayList<String>();
 			for (int i = 0; i < destination.size(); i++) {
@@ -152,14 +141,14 @@ public class Destination extends ListActivity implements OnClickListener {
 
 			Intent tripE = new Intent(this, tripExpense.class);
 			tripE.putStringArrayListExtra("destinationList", dList);
+			tripE.putExtra("numPeople", nPeople);
+			tripE.putExtra("tripName", tName);
+
 			startActivity(tripE);
 
 			break;
 
 		}
-		
-		
-		
 
 		case (R.id.btnMapView): {
 			// On click, it brings the user to map view
@@ -171,12 +160,19 @@ public class Destination extends ListActivity implements OnClickListener {
 			else {
 
 				ArrayList<String> dList = new ArrayList<String>();
+				ArrayList<String> tripMemos = new ArrayList<String>();
+				ArrayList<String> tripPlaces = new ArrayList<String>();
 				for (int i = 0; i < destination.size(); i++) {
 					dList.add(destination.get(i).getAddress());
+					tripMemos.add(destination.get(i).getTripMemos());
+					tripPlaces.add(destination.get(i).getDestinationName());
 				}
 
 				Intent mapView = new Intent(this, MapCreate.class);
 				mapView.putStringArrayListExtra("destinationList", dList);
+				mapView.putStringArrayListExtra("tripMemos", tripMemos);
+				mapView.putStringArrayListExtra("tripPlaces", tripPlaces);
+				mapView.putExtra("tripName", tName);
 				startActivity(mapView);
 			}
 			break;

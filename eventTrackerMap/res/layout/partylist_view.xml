@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:textSize="17sp" 
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"/>
      <TextView
         android:id="@+id/partyDate_id"
         android:layout_width="fill_parent"

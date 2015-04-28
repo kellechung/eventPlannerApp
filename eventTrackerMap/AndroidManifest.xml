@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.eventtrackermap"
-    android:installLocation="preferExternal"
+    android:installLocation="auto"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="15"
+        android:minSdkVersion="17"
         android:targetSdkVersion="17" />
 
     <application
@@ -19,7 +19,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCTjwwtPZ4xJRh06b6tv8hQR5hFYbOfeN0" />
+            android:value="AIzaSyDlJdjYA57DU-NBBCynG6wBMMjB57902sk" />
 
         <activity
             android:name=".main"
@@ -86,12 +86,11 @@
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
-
+   <permission
+        android:name="com.example.partymode.permission.MAPS_RECEIVE" 
+        android:protectionLevel="signature"/>
     <uses-permission android:name="com.course.example.justamap.permission.MAPS_RECEIVE" />
  	<uses-permission android:name="android.permission.VIBRATE" />
-    <permission
-        android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"
-        android:protectionLevel="signature" >
-    </permission>
+    
 
 </manifest>

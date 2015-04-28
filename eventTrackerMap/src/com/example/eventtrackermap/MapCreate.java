@@ -1,9 +1,8 @@
 package com.example.eventtrackermap;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -17,19 +16,19 @@ import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
+import android.location.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import android.os.Handler;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TabHost;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 public class MapCreate extends Activity {
 	private GoogleMap myMap, myMap2;
@@ -40,12 +39,15 @@ public class MapCreate extends Activity {
 	TabHost.TabSpec spec;
 	TabHost.TabSpec spec2;
 
-	// coordinates CSU decimal format. e.g., xxx.xxxxxx
-	// locate initial coordinates at Bentley
-	double latitude = 42.3889167;
-	double longitude = -71.2208033;
-	double d;
+	ArrayList<String> placeList;
+	ArrayList<String> memos;
+	ArrayList<String> destNames;
+	List<LatLng> listLatLng;
+	String tripName;
 
+
+	double d;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -54,8 +56,19 @@ public class MapCreate extends Activity {
 
 		Intent mIntent = getIntent(); // get reference to Intent contain
 										// addresses from user
-		ArrayList<String> placeList = mIntent
+		 placeList = mIntent
 				.getStringArrayListExtra("destinationList");
+		 
+		
+		 memos = mIntent
+				.getStringArrayListExtra("tripMemos"); 
+		 
+		 destNames = mIntent
+			.getStringArrayListExtra("tripPlaces"); 
+		 
+		 tripName = mIntent.getStringExtra(tripName);
+		 
+
 
 		String[] addressBook = new String[placeList.size()];
 		for (int i = 0; i < placeList.size(); i++) {
@@ -65,6 +78,8 @@ public class MapCreate extends Activity {
 			Log.d("GeoCoordinates", getLatLng(addressBook[i]).latitude + "");
 		}
 
+
+		
 		tabs = (TabHost) findViewById(R.id.tabhost);
 		tabs.setup();
 
@@ -84,13 +99,14 @@ public class MapCreate extends Activity {
 				.getMap();
 		myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-				42.331, -71.09), 10));
+				42.357267, -71.062403), 10f));
 
 		myMap2 = ((MapFragment) getFragmentManager()
 				.findFragmentById(R.id.map2)).getMap();
 		myMap2.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 		myMap2.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-				42.331, -71.09), 10));
+				42.357267, -71.062403), 10f));
+	
 
 		for (int i = 0; i < addressBook.length; i++) {
 			myMap.addMarker(new MarkerOptions()
@@ -108,7 +124,7 @@ public class MapCreate extends Activity {
 							.fromResource(R.drawable.mapicon1)));
 
 			// Storing geocoordinates in array
-			List<LatLng> listLatLng = new ArrayList<LatLng>();
+			listLatLng = new ArrayList<LatLng>();
 			for (int j = 0; j < addressBook.length; j++) {
 
 				listLatLng.add(getLatLng(addressBook[j]));
@@ -121,22 +137,30 @@ public class MapCreate extends Activity {
 
 			myMap2.addPolyline(new PolylineOptions().addAll(listLatLng)
 					.width(8).color(Color.BLUE));
+			
+
 
 			myMap.setOnMarkerClickListener(new OnMarkerClickListener() {
 
 				public boolean onMarkerClick(Marker m) {
 
 					m.showInfoWindow();
+					
 					return true;
 
 				}
 			});
+			
+			
+			
 
 			myMap.setInfoWindowAdapter(new InfoWindowAdapter() {
 
 				// Use default InfoWindow frame
 				@Override
 				public View getInfoWindow(Marker arg0) {
+					
+				
 					return null;
 				}
 
@@ -147,52 +171,83 @@ public class MapCreate extends Activity {
 					// Getting view from the layout file info_window_layout
 					View v = getLayoutInflater().inflate(
 							R.layout.marker_info_content, null);
+                   
+					LatLng coord = new LatLng(m.getPosition().latitude, m.getPosition().longitude);
+					int pos = listLatLng.indexOf(coord);
+				
+					String add = "Address: " + placeList.get(pos);
+					String tMemo = "Notes for this place: " + memos.get(pos);
+					String name = destNames.get(pos);
 
+					
 					// Getting reference to the TextView to set latitude
 					TextView tvLat = (TextView) v.findViewById(R.id.txtBudget);
-					// tvLat.setText("ok");
+					tvLat.setText(add);
 
-					// Getting reference to the TextView to set longitude
-					EditText amount = (EditText) v
-							.findViewById(R.id.budgetAmount);
-					amount.setHint("Estimated expenses");
+					TextView Hotel2 = (TextView) v.findViewById(R.id.Hotel2);
+					Hotel2.setText(tMemo);
+					TextView Hotel3 = (TextView) v.findViewById(R.id.Hotel3);
+					Hotel3.setText("Destination Name: " +  name);
 
+					
+	
+					
 					// Returning the view containing InfoWindow contents
 					return v;
 
 				}
 			});
+			
+			
+			myMap2.setInfoWindowAdapter(new InfoWindowAdapter() {
+
+				// Use default InfoWindow frame
+				@Override
+				public View getInfoWindow(Marker arg0) {
+					
+				
+					return null;
+				}
+
+				// Defines the contents of the InfoWindow
+				@Override
+				public View getInfoContents(Marker m) {
+
+					// Getting view from the layout file info_window_layout
+					View v = getLayoutInflater().inflate(
+							R.layout.marker_info_content, null);
+                   
+					LatLng coord = new LatLng(m.getPosition().latitude, m.getPosition().longitude);
+					int pos = listLatLng.indexOf(coord);
+				
+					String add = "Address: " + placeList.get(pos);
+					String tMemo = "Notes for this place: " + memos.get(pos);
+					String name = destNames.get(pos);
+
+					
+					// Getting reference to the TextView to set latitude
+					TextView tvLat = (TextView) v.findViewById(R.id.txtBudget);
+					tvLat.setText(add);
+
+					TextView Hotel2 = (TextView) v.findViewById(R.id.Hotel2);
+					Hotel2.setText(tMemo);
+					TextView Hotel3 = (TextView) v.findViewById(R.id.Hotel3);
+					Hotel3.setText("Destination Name: " +  name);
+
+					
+	
+					
+					// Returning the view containing InfoWindow contents
+					return v;
+
+				}
+			});
+			
+			
 		}
 
 	}// onCreate
 
-	public  String getGeoCoordinates(String add) {
-
-		String lat = null;
-		String locality = null;
-		double latitude = 0;
-		double longitude = 0;
-		Geocoder geo = new Geocoder(getApplicationContext(),
-				Locale.getDefault());
-
-		try {
-			List<Address> geoList = geo.getFromLocationName(add, 1);
-
-			Address geoAdd = geoList.get(0);
-			locality = geoAdd.getLocality();
-			latitude = geoAdd.getLatitude();
-			longitude = geoAdd.getLongitude();
-			lat = locality + "--" + latitude + "--" + longitude;
-			Log.w("Coordinates", latitude + "  " + longitude);
-			// Toast.makeText(this, gAdd, Toast.LENGTH_LONG);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			Log.w("myLog", e);
-			e.printStackTrace();
-		}
-		return lat;
-
-	}
 
 	public LatLng getLatLng(String add) {
 
@@ -270,5 +325,6 @@ public class MapCreate extends Activity {
 		return (rad * 180 / Math.PI);
 
 	}
+	
 
 }// class
