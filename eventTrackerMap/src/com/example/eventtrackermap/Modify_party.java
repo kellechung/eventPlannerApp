@@ -3,15 +3,11 @@ package com.example.eventtrackermap;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -54,9 +50,7 @@ public class Modify_party extends FragmentActivity implements OnItemSelectedList
 	private int mYear;
 	private int mMonth;
 	private int mDay;
-	private ArrayList<String> emails;
-	private static final String DEBUG_TAG = "email_Tag";
-	
+		
 	GoogleMap googleMap;
 	MarkerOptions markerOptions;
 	LatLng latLng;
@@ -74,9 +68,7 @@ public class Modify_party extends FragmentActivity implements OnItemSelectedList
 		        getSupportFragmentManager().findFragmentById(R.id.map_mod);
 		        // Getting a reference to the map
 		        googleMap = supportMapFragment.getMap();
-		        
-		emails = new ArrayList<String>();
-		
+		        	
 		partyTheme_et = (EditText) findViewById(R.id.partyTheme_et_mod);
 		configureImagebutton();
 		date_tv = (TextView) findViewById(R.id.showMyDate_mod);
@@ -194,8 +186,7 @@ public class Modify_party extends FragmentActivity implements OnItemSelectedList
 		
 		case R.id.email_btn_mod:
 			updateParty();
-			Intent getContacts = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-	        startActivityForResult(getContacts, 1);
+			
 			sendEmail(); 
 			return true;
 		case R.id.delete_btn:
@@ -217,61 +208,13 @@ public class Modify_party extends FragmentActivity implements OnItemSelectedList
 		dbcon.updateData(party_ID, new Party(partyTheme_upd, date_upd, comment_upd, location_upd, dressing_upd, selection_index_upd));
 	}
 	
-	protected void onActivityResult(int reqCode, int resultCode, Intent data)
-	{
- if (resultCode == RESULT_OK) {
-        switch (reqCode) 
-        {
-        case 1:
-            Cursor cursor = null;
-            String email = "";
-            try {
-                Uri result = data.getData();//contact's complete uri
-                Log.v(DEBUG_TAG, "Got a contact result: " + result.toString());
-
-                // get the contact id from the Uri
-                String id = result.getLastPathSegment();
-
-                // query for everything email
-                cursor = getContentResolver().query(Email.CONTENT_URI, null, Email.CONTACT_ID + "=?", new String[] { id }, null);
-
-                int emailIdx = cursor.getColumnIndex(Email.DATA);
-
-                // let's just get the first email
-                if (cursor.moveToFirst()) {
-                    email = cursor.getString(emailIdx);
-
-                    Log.v(DEBUG_TAG, "Got email: " + email);
-                } else {
-                    Log.w(DEBUG_TAG, "No results");
-                }
-            } catch (Exception e) {
-                Log.e(DEBUG_TAG, "Failed to get email data", e);
-            } finally {
-                if (cursor != null) {	                	
-                    cursor.close();
-                }		                
-                if(email!=""){
-                	emails.add(email);
-                	}
-                else if (email.length() == 0) 
-                {
-                    Toast.makeText(this, "No Email for Selected Contact",Toast.LENGTH_LONG).show();
-                }
-            }
-            break;
-        }
-
-    } else {
-        Log.w(DEBUG_TAG, "Warning: activity result not ok");
-    }
-	}
+	
 
 
 
 
-public void sendEmail(){			//this creates an String[] array with size()
-	String[] TO = emails.toArray(new String[emails.size()]);
+public void sendEmail(){			
+	
 	String partyTheme = partyTheme_et.getText().toString();
 	String date = date_tv.getText().toString();
 	String comment = comment_et.getText().toString();
@@ -284,7 +227,7 @@ public void sendEmail(){			//this creates an String[] array with size()
     emailIntent.setType("text/plain");
 
     //insert recipients, subject and text content
-    emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+    
     emailIntent.putExtra(Intent.EXTRA_SUBJECT, partyTheme);
     emailIntent.putExtra(Intent.EXTRA_TEXT, "Party invitation"+"\n"+"\n"+
     					"Subject: "+ partyTheme +"\n"+			
