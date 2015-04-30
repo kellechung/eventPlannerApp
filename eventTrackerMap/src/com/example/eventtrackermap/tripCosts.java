@@ -44,7 +44,8 @@ public class tripCosts extends Activity implements OnClickListener {
 		emails = new ArrayList<String>();
 		aa = new ArrayAdapter<String>(this, R.layout.mylist, emails);
 		emailList.setAdapter(aa);
-
+		
+		//Getting info from previous activity
 		Intent i = getIntent();
 		finalCost = i.getDoubleExtra("totalCost", 0);
 		dest = i.getStringArrayListExtra("dest");
@@ -80,6 +81,7 @@ public class tripCosts extends Activity implements OnClickListener {
 
 	}
 
+	//Send email 
 	protected void sendEmail() {
 		Log.i("Send email", "");
 		String[] TO = emails.toArray(new String[emails.size()]);
@@ -88,12 +90,14 @@ public class tripCosts extends Activity implements OnClickListener {
 		emailIntent.setData(Uri.parse("mailto:"));
 		emailIntent.setType("text/plain");
 
+		//Appending list of destination address to string	
 		String dName = "";
 		for (int j = 0; j < dest.size(); j++) {
 			int index = j + 1;
 			dName = dName + index + ". " + dest.get(j) + "\n";
 		}
-
+		
+		//Appending address and trip details to string
 		double costPerPerson = finalCost/numPeople;	
 		String extraText = "Details for : " + tripName + "\n \n"
 				+ "Destinations: " + " \n" + dName + "\n \n"
@@ -118,6 +122,7 @@ public class tripCosts extends Activity implements OnClickListener {
 
 		}
 	}
+
 
 	protected void onActivityResult(int reqCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
