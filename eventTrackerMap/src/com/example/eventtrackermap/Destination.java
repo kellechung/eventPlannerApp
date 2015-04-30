@@ -16,20 +16,22 @@ public class Destination extends ListActivity implements OnClickListener {
 
 	// Declaring widgets
 
-	ListView list;
+	ListView list; //List which displays the destination names added to trip to user
 	EditText destName, edtTextZip, edtTextMemos, edtTextStreetAdress,
 			edtTextCity;
-	Button btnAdd, btnUpdate, btnNext, btnDelete, btnMapView;
+	Button btnAdd, btnUpdate, btnNext, btnDelete, btnMapView; // Buttons used to modify list
 	String dName, streetAdd, city, memos, zip;
-	place newDest;
-	String tName;
-	int nPeople;
+	place newDest; 
+	String tName; 
+	int nPeople; //Number of people going to trip
 
 	// ArrayList of type place to store multiple destinations for a given trip
 	private ArrayList<place> destination = new ArrayList<place>();
+	//ArrayList to only store destination name for UI display
 	ArrayList<String> placeName = new ArrayList<String>();
+	//Array adapter for destination list
 	ArrayAdapter<String> aa;
-	int itemPos; // to keep track of destination number in list
+	int itemPos; //Position of item in destination list
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +90,7 @@ public class Destination extends ListActivity implements OnClickListener {
 
 		case (R.id.btnAdd): {
 
-			// btnAdd causes a new object destination to be added to an
-			// arrayList of destination
+			// btnAdd causes a new object destination to be added 
 			// The list displayed to user is a string list with destination name
 			// only. So there are 2 array list - one that contains place and
 			// another
