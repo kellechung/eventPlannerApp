@@ -6,17 +6,14 @@ import java.util.Calendar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
+import android.app.DatePickerDialog;//to enable date picker
 import android.app.Dialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.util.Log;
@@ -25,13 +22,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
@@ -45,13 +39,15 @@ public class newMeeting extends Activity{
 	private ImageButton addContact;
 	
 	//create variables for storing meetings and sending emails
-	private String subject;
-	private String date;
-	private String location;
-	private String fromTime;
-	private String toTime;
-	private String description;
-	private EditText meetingSubject;
+	private String subject; //store meeting subject
+	private String date; //store meeting date	
+	private String location; //store meeting location	
+	private String fromTime;//store time start
+	private String toTime; //store time end
+	private String description; //store description entered
+	
+	//define widgets to enter above inputs
+	private EditText meetingSubject; 
 	private EditText meetingLocation;
 	private TextView meetingDate;
 	private EditText meetingFromTime;
@@ -63,7 +59,7 @@ public class newMeeting extends Activity{
 	SQLiteDatabase db;
 	
 	//create variables for sending email
-	private ListView emailList;
+	private ListView emailList; //listview to display selected email addresses from contact
 	private ArrayList<String> emails;
 	private ArrayAdapter<String> aa;
 	
@@ -88,7 +84,7 @@ public class newMeeting extends Activity{
         meetingToTime= (EditText)findViewById(R.id.EnterTimeTo);//read entered to time
         meetingDescription= (EditText)findViewById(R.id.meetingDescriptionEnter);//read entered description
         
-        
+        //initial arraylist and arrayadapter to store selected email addresses into arrarylist
         emailList = (ListView)findViewById(android.R.id.list);
         emails = new ArrayList<String>();
     	aa = new ArrayAdapter<String> (this,R.layout.mylist,emails);
@@ -99,12 +95,13 @@ public class newMeeting extends Activity{
         
         //initialize database
         db=openOrCreateDatabase("meetings",MODE_PRIVATE, null);
-        db.execSQL("DROP TABLE IF EXISTS " + "meetings");
+        //create the meeting table that has six columns: subject, date, location, timestart, timeend and description
         db.execSQL("CREATE TABLE IF NOT EXISTS meetings (subject VARCHAR2, date VARCHAR2," +
         		"location VARCHAR2, timeStart VARCHAR2, timeEnd VARCHAR2, description VARCHAR2);");
        
     };
     
+    //configure two imageButtons: date picker and add email address
     private void configureImagebutton() {
 		ImageButton mPickDate=(ImageButton) findViewById(R.id.myDatePickerButton);
 	    //the image button implements date picker
@@ -135,7 +132,7 @@ public class newMeeting extends Activity{
         updateDisplay();
     }
      
-
+    //this method is used to update date displayed by textview when a new date other than today's date is picked by user
 	private void updateDisplay() {
 	    this.meetingDate.setText(
 	        new StringBuilder()
@@ -145,6 +142,7 @@ public class newMeeting extends Activity{
 	                .append(mYear).append(" "));
 	}
 	
+	//set listener for the date picker
 	private DatePickerDialog.OnDateSetListener mDateSetListener =
 		    new DatePickerDialog.OnDateSetListener() {
 		        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -163,7 +161,8 @@ public class newMeeting extends Activity{
 		       return null;
 		    }		
     
-    //inflate action bard with three icons: save, send email and back
+    
+    //inflate action bar with three icons: save, send email and back
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
@@ -249,7 +248,10 @@ public class newMeeting extends Activity{
 	 //create method to send email
 	 protected void sendEmail() {
 	      Log.i("Send email", "");
+	      //read email addresses store in arrarylist and store them to recipient list
 	      String[] TO = emails.toArray(new String[emails.size()]);
+	      
+	      //read user inputs and store them to attributes of a meeting 
 	      subject= meetingSubject.getText().toString(); 
 		  date= meetingDate.getText().toString();
 		  location= meetingLocation.getText().toString();
@@ -263,12 +265,14 @@ public class newMeeting extends Activity{
 	      //insert recipients, subject and text content
 	      emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
 	      emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+	      //formatting an email to be sent
 	      emailIntent.putExtra(Intent.EXTRA_TEXT, "Hi, you are invited to attend a study group meeting."+"\n\n"+
 	    		  				"Details of the meeting invitation"+"\n"+"\n"+"Subject: "+subject+"\n"+
 	    		  				"Date: "+ date+ "\n"+ "Duration: "+fromTime+" - "+toTime+ "\n"+"Location: "+location+
 	    		  				"\n"+"Description: "+description+ "\n"+"\n"+"Please respond to this email if you can't attend. Thank you!"); 
 
 	      try {
+	    	  //check input, if any necessary information is not entered, a meeting could not be sent
 	    	  if(subject.trim().length()==0|| date.trim().length()==0|| location.trim().length()==0||
 	    			     fromTime.trim().length()==0|| toTime.trim().length()==0 || description.trim().length()==0)
 	    		    		{
@@ -292,6 +296,7 @@ public class newMeeting extends Activity{
 		  fromTime= meetingFromTime.getText().toString();
 		  toTime= meetingToTime.getText().toString();
 		  description= meetingDescription.getText().toString();
+		//check input, if any necessary information is not entered, a meeting could not be saved
 		  if(subject.trim().length()==0|| date.trim().length()==0|| location.trim().length()==0||
 		     fromTime.trim().length()==0|| toTime.trim().length()==0 || description.trim().length()==0)
 	    		{
@@ -304,6 +309,8 @@ public class newMeeting extends Activity{
 				         "Your meeting has been saved.", Toast.LENGTH_SHORT).show();}
 	}
 	
+	//method to display stored meeting, when no meeting has been stored, warning will be shown by toast.
+	//Otherwise, a StringBuffer would append stored information on context
 	protected void viewMeeting(){
 		  date= meetingDate.getText().toString();
 		  location= meetingLocation.getText().toString();
@@ -329,7 +336,8 @@ public class newMeeting extends Activity{
   		showMessage("Meeting Details", buffer.toString());
   	}
   	
-    public void showMessage(String title,String message)
+    //a method build to display message, used by viewMeeting method
+	public void showMessage(String title,String message)
     {
     	Builder builder=new Builder(this);
     	builder.setCancelable(true);
@@ -338,12 +346,14 @@ public class newMeeting extends Activity{
     	builder.show();
 	}
     
-    public void alertExit(){
+    //this method alerts the user when it trying to exit without saving the current meeting
+	public void alertExit(){
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Exit without saving?");
         builder.setMessage("Click NO and your meeting will be automaticaly saved");
 
+        //add the option button Yes
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
@@ -355,6 +365,7 @@ public class newMeeting extends Activity{
 
         });
 
+       //add the option button NO
         builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
 
             @Override
