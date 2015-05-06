@@ -20,21 +20,23 @@ import android.widget.*;
 
 public class tripCosts extends Activity implements OnClickListener {
 
-	TextView txtFinalCost;
+	TextView txtFinalCost; // Display final costs
 	DecimalFormat f = new DecimalFormat("$##.00");
 	static final int PICK_CONTACT_REQUEST = 1;
-	String DEBUG_TAG = "EMAIL_DEBUG_TAG";
+	String DEBUG_TAG = "EMAIL_DEBUG_TAG"; //Tag for log
+	
+	//Options menu selection
 	final int PICK1 = Menu.FIRST + 1;
 	final int PICK2 = Menu.FIRST + 2;
 
 	// create variables for sending email
-	private ListView emailList;
-	private ArrayList<String> emails;
-	private ArrayAdapter<String> aa;
-	ArrayList<String> dest;
-	int numPeople;
-	String tripName;
-	double finalCost;
+	private ListView emailList; // List to display email list
+	private ArrayList<String> emails; //Arraylist for emails
+	private ArrayAdapter<String> aa; //Array adapter for email list
+	ArrayList<String> dest; // destination list 
+	int numPeople; //Stores num people going to trip
+	String tripName; //Stores trip name
+	double finalCost; //Store final cost of trip
 
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -46,6 +48,7 @@ public class tripCosts extends Activity implements OnClickListener {
 		emailList.setAdapter(aa);
 		
 		//Getting info from previous activity
+		//Extracting info from intent
 		Intent i = getIntent();
 		finalCost = i.getDoubleExtra("totalCost", 0);
 		dest = i.getStringArrayListExtra("dest");
@@ -56,14 +59,17 @@ public class tripCosts extends Activity implements OnClickListener {
 		//txtFinalCost.setText("Costs for : " + tripName + " = " + f.format(finalCost));
 		txtFinalCost.append("\n");
 		
-		
+		//Creating a string with destination list for email content
 		String dName = "";
 		for (int j = 0; j < dest.size(); j++) {
 			int index = j + 1;
 			dName = dName + index + ". " + dest.get(j) + "\n";
 		}
 
+		//calculate trip cost per person
 		double costPerPerson = finalCost/numPeople;	
+		
+		// Creating string that the form email body
 		String extraText = "Details for : " + tripName + "\n \n"
 				+ "Destinations: " + " \n" + dName + "\n \n"
 				+ "Total Trip Cost : " +  f.format(finalCost)
@@ -81,7 +87,7 @@ public class tripCosts extends Activity implements OnClickListener {
 
 	}
 
-	//Send email 
+	//Send email method with email body
 	protected void sendEmail() {
 		Log.i("Send email", "");
 		String[] TO = emails.toArray(new String[emails.size()]);
@@ -208,6 +214,7 @@ public class tripCosts extends Activity implements OnClickListener {
 			sendEmail();
 
 			return true;
+		//Add contacts to send email to	
 		case R.id.addContact: {
 			Intent addContacts = new Intent(Intent.ACTION_PICK,
 					ContactsContract.Contacts.CONTENT_URI);

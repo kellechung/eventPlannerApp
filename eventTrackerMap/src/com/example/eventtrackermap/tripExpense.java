@@ -20,33 +20,41 @@ import android.widget.*;
 
 public class tripExpense extends ListActivity implements OnClickListener {
 
-	EditText edtTextItemName;
-	EditText edtItemCost;
-	EditText edtGasPrice;
-	Button btnAdd;
-	Button btnUpdate;
-	Button btnSave;
-	Button btnDelete;
-	Button btnNext;
-	ListView list;
-	TextView txtFuelCost;
-	TextView txtTotalFuelCost;
-	double totalDistance = 0;
-	ArrayAdapter<String> aa;
+	EditText edtTextItemName; // Edit text to allow user to enter item name
+	EditText edtItemCost; // Edit text to allow user to enter item cost
+	EditText edtGasPrice; // Edit text to allow user to enter gas price
+	EditText edtMilePerGallon; // Edit text to allow user to enter mileage
+								// obtained per gallon
+
+	Button btnAdd; // button to add item to list
+	Button btnUpdate; // button to update item to list
+	Button btnDelete; // button to delete item in list
+	Button btnNext; // button to navigate to next activity
+
+	ListView list; // List containing miscellaneous item cost pertaining to
+					// trip
+	TextView txtFuelCost; // Display for fuel cost
+	TextView txtTotalFuelCost; // Display of total fuel cost
+
+	double totalDistance = 0; // Variable to store calculated trip distance
+	ArrayAdapter<String> aa; // Array adapter for expense list
 	ArrayList<String> expenseList = new ArrayList<String>();
 	int itemPos; // to keep track of destination number in list
-	final double DEFAULT_GAS_PRICE = 2.50;
-	final int AVG_MILES_PER_GALLON = 35;
-	int numPeople;
-	EditText edtMilePerGallon;
-	String tripName;
-	ArrayList<String> placeList; 
+
+	final double DEFAULT_GAS_PRICE = 2.50; // default variable storing gas price
+											// per gallon
+	final int AVG_MILES_PER_GALLON = 35;// default variable storing gas
+										// efficiency of vehicle
+	int numPeople; // variable storing number of people going to trip
+
+	String tripName; // variable storing name of trip
+	ArrayList<String> placeList; // Arraylist storing list of places on trip
 
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trip_expense_tracker);
-		
+
 		txtFuelCost = (TextView) findViewById(R.id.txtFuelCost);
 		txtTotalFuelCost = (TextView) findViewById(R.id.txtTotalFuelCost);
 		edtTextItemName = (EditText) findViewById(R.id.edtTextItemName);
@@ -65,37 +73,43 @@ public class tripExpense extends ListActivity implements OnClickListener {
 		setListAdapter(aa);
 		aa.notifyDataSetChanged();
 
-		Intent mIntent = getIntent(); // get reference to Intent contain
-		// addresses from user
-		placeList = mIntent
-				.getStringArrayListExtra("destinationList");
-		
+		Intent mIntent = getIntent();
+		// Intent passed to activity
+		// Extracting info from intent objs - list of destination, trip name and
+		// numPeople going
+		placeList = mIntent.getStringArrayListExtra("destinationList");
+
 		numPeople = mIntent.getIntExtra("numPeople", 1);
 		tripName = mIntent.getStringExtra("tripName");
 		Log.d("ADDRESS", placeList.get(0));
 
-		
 		// Storing geocoordinates in array
 		List<LatLng> listLatLng = new ArrayList<LatLng>();
 
-	
 		for (int j = 0; j < placeList.size(); j++) {
-
 			listLatLng.add(getLatLng(placeList.get(j)));
-
 		}
-		
-		if (listLatLng.size() > 1) {totalDistance = calcTripDistance(listLatLng);}
-		
-		else {totalDistance = 0;}
-			
+
+		// Calculating total trip distance from list of stored latlng objs
+		if (listLatLng.size() > 1) {
+			totalDistance = calcTripDistance(listLatLng);
+		}
+
+		else {
+			totalDistance = 0;
+		}
+
 		txtFuelCost.setText("Trip Distance (Miles) : "
 				+ Math.round(totalDistance));
 
 		DecimalFormat f = new DecimalFormat("$##.00");
 
+		// Formatting fuel costs and displaying basic assumptions to user
 		txtTotalFuelCost.setText("Total Fuel Cost ($): "
-				+ f.format(totalDistance * DEFAULT_GAS_PRICE / AVG_MILES_PER_GALLON));
+				+ f.format(totalDistance * DEFAULT_GAS_PRICE
+						/ AVG_MILES_PER_GALLON));
+
+		// Adding listener to buttons
 		btnAdd.setOnClickListener(this);
 		btnUpdate.setOnClickListener(this);
 		btnDelete.setOnClickListener(this);
@@ -107,11 +121,15 @@ public class tripExpense extends ListActivity implements OnClickListener {
 	public void onClick(View v) {
 		String itemName = edtTextItemName.getText().toString();
 		String itemCost = edtItemCost.getText().toString();
-		Double milesPerGallon = Double.parseDouble(edtMilePerGallon.getText().toString());
+		Double milesPerGallon = Double.parseDouble(edtMilePerGallon.getText()
+				.toString());
 		String listItem = "";
 		switch (v.getId()) {
 
+		// Allows user to enter item cost and name to list
+		// Trapping invalid user inputs through if else statements
 		case (R.id.btnAdd): {
+
 
 			if (itemName.equals("")) {
 				Toast.makeText(this, "Enter item name", Toast.LENGTH_SHORT)
@@ -128,14 +146,15 @@ public class tripExpense extends ListActivity implements OnClickListener {
 				Toast.makeText(getApplicationContext(),
 						"Item added to expense list", Toast.LENGTH_SHORT)
 						.show();
-				
+
 				clear();
 			}
 
 			break;
 
 		}
-
+		//Allow user to update info in list
+		
 		case (R.id.btnUpdate): {
 			if (itemName.equals("")) {
 				Toast.makeText(this, "Enter item name", Toast.LENGTH_SHORT)
@@ -153,31 +172,36 @@ public class tripExpense extends ListActivity implements OnClickListener {
 			}
 			break;
 		}
-
+		// Allow user to delete items in list
 		case (R.id.btnDelete): {
 			expenseList.remove(itemPos);
 			aa.notifyDataSetChanged();
 			Toast.makeText(this, "item removed", Toast.LENGTH_SHORT).show();
 			break;
 		}
-
-	
-
+		
+		
+		//Allow user to navigate to next activity
+		// Create intent objects to send info to next activity
 		case (R.id.btnNext): {
-			Double gasPrice =  Double.parseDouble(edtGasPrice.getText().toString());
+			
+			//Calculates total gas price from edit texts data
+			Double gasPrice = Double.parseDouble(edtGasPrice.getText()
+					.toString());
 			Double totalGasPrice = totalDistance * gasPrice / milesPerGallon;
-			
+
 			double expenses = 0;
-			
-			for (int i = 0; i <expenseList.size(); i++) {
-				
+
+			for (int i = 0; i < expenseList.size(); i++) {
+
 				int pos = expenseList.get(i).indexOf("$");
-				String ex =  expenseList.get(i).substring(pos + 2);
+				String ex = expenseList.get(i).substring(pos + 2);
 				expenses += Double.parseDouble(ex);
 			}
-			
+
 			Log.d("ExpenseCalculation", "" + expenses);
 			
+			//Passing data to next activity through intents
 			Double totalCosts = totalGasPrice + expenses;
 			Intent tripFinal = new Intent(this, tripCosts.class);
 			tripFinal.putExtra("totalCost", totalCosts);
@@ -191,7 +215,6 @@ public class tripExpense extends ListActivity implements OnClickListener {
 		}
 
 	}
-
 
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
@@ -209,6 +232,8 @@ public class tripExpense extends ListActivity implements OnClickListener {
 
 	}
 
+	
+	//Method to get a latlng object from an address aka fwd geocoding
 	public LatLng getLatLng(String add) {
 
 		LatLng latlng = null;
@@ -219,9 +244,7 @@ public class tripExpense extends ListActivity implements OnClickListener {
 
 		try {
 			List<Address> geoList = geo.getFromLocationName(add, 1);
-
 			Address geoAdd = geoList.get(0);
-
 			latitude = geoAdd.getLatitude();
 			longitude = geoAdd.getLongitude();
 			latlng = new LatLng(latitude, longitude);
@@ -229,7 +252,6 @@ public class tripExpense extends ListActivity implements OnClickListener {
 			return latlng;
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			Log.w("myLog", e);
 			e.printStackTrace();
 		}
@@ -237,12 +259,11 @@ public class tripExpense extends ListActivity implements OnClickListener {
 
 	}
 
-	// Calculates distance for entire trip
+	// Calculates distance for entire trip from a list of geo points
 	public double calcTripDistance(List<LatLng> listGeoPoints) {
 		double tripDistance = 0;
 
 		// For n points, there should be n-1 distances
-
 		for (int k = 0; k < listGeoPoints.size() - 1; k++) {
 			double firstPointLat = listGeoPoints.get(k).latitude;
 			double firstPointLng = listGeoPoints.get(k).longitude;
@@ -258,8 +279,7 @@ public class tripExpense extends ListActivity implements OnClickListener {
 		return tripDistance;
 	}
 
-	// Calculate distance between 2 geocoordinates. This method is used to
-	// calculate entire trip distance
+	// Calculate distance between 2 geocoordinates.
 	private double calcDistanceBetweenPoints(double lat1, double lon1,
 			double lat2, double lon2) {
 
@@ -274,17 +294,22 @@ public class tripExpense extends ListActivity implements OnClickListener {
 
 	}
 
+	//Method converting degrees to radian
 	private double deg2rad(double deg) {
 
 		return (deg * Math.PI / 180.0);
 
 	}
-
+	
+	//Method converting radians to degrees
 	private double rad2deg(double rad) {
 
 		return (rad * 180 / Math.PI);
 	}
-	
-	public void clear() {edtTextItemName.setText("");
-	edtItemCost.setText("");}
+
+	// Method to reset & clear edit texts from user inputs
+	public void clear() {
+		edtTextItemName.setText("");
+		edtItemCost.setText("");
+	}
 }

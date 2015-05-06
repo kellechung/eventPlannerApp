@@ -14,27 +14,30 @@ import java.util.*;
 
 public class tripCreator extends Activity implements OnClickListener {
 
-	EditText edtTripName, edtNumPeople;
-	Button btnCreateTrip;
-	String tripName;
-	String numPeople;
+	EditText edtTripName, edtNumPeople; //edit text to get trip name and num people going to trip from user
+	Button btnCreateTrip; //button to create trip and start next activity
+	String tripName; // String storing tripName
+	String numPeople; //String storing number of people 
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trip);
 
+		//Inflating menu	
 		edtTripName = (EditText) findViewById(R.id.edtTripName);
 		edtNumPeople = (EditText) findViewById(R.id.edtNumPeople);
 		btnCreateTrip = (Button) findViewById(R.id.btnCreateTrip);
-
-	
+		//Adding listener to button createTrip
 		btnCreateTrip.setOnClickListener(this);
 
 	}
 
 	@Override
+	//On click btnCreate
+	// Get user inputs from editText
+	//Create toast objects displaying errors to user if wrong inputs are entered
 	public void onClick(View v) {
-
+	
 		tripName = edtTripName.getText().toString();
 		numPeople = edtNumPeople.getText().toString();
 		
@@ -57,6 +60,7 @@ public class tripCreator extends Activity implements OnClickListener {
 					Toast.LENGTH_SHORT).show();
 		}
 
+		//Passing data through intent objs
 		Intent trip = new Intent(this, Destination.class);
 		trip.putExtra("tripVal", tripName);
 		Log.d("CountPeople", "" + countPeople);

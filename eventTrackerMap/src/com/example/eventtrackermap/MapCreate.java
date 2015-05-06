@@ -31,21 +31,24 @@ import android.view.View.OnClickListener;
 import android.widget.*;
 
 public class MapCreate extends Activity {
-	private GoogleMap myMap, myMap2;
+	
+	
+	private GoogleMap myMap, myMap2; // Creating 2 google map objects
 	private LatLng position = null;
 	private Geocoder gc = null;
-	private Marker mark = null;
+	//private Marker mark = null;
+	
+	//Adding tabhosts to layouts
 	TabHost tabs;
 	TabHost.TabSpec spec;
 	TabHost.TabSpec spec2;
 
-	ArrayList<String> placeList;
-	ArrayList<String> memos;
+	ArrayList<String> placeList; // Arraylist storing destination list passed from intent
+	ArrayList<String> memos; // Arraylist storing memo list passed from intent
 	ArrayList<String> destNames;
-	List<LatLng> listLatLng;
-	String tripName;
-
-
+	
+	List<LatLng> listLatLng; // List of latlng objects to store geopoints passed from intent
+	String tripName; // String to store trip name passed from intent
 	double d;
 	
 
@@ -53,13 +56,13 @@ public class MapCreate extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		//Extracting data from intent
 
-		Intent mIntent = getIntent(); // get reference to Intent contain
-										// addresses from user
+		Intent mIntent = getIntent(); 
 		 placeList = mIntent
 				.getStringArrayListExtra("destinationList");
 		 
-		
 		 memos = mIntent
 				.getStringArrayListExtra("tripMemos"); 
 		 
@@ -69,7 +72,7 @@ public class MapCreate extends Activity {
 		 tripName = mIntent.getStringExtra(tripName);
 		 
 
-
+		 //Transferring list content to array
 		String[] addressBook = new String[placeList.size()];
 		for (int i = 0; i < placeList.size(); i++) {
 
@@ -95,19 +98,22 @@ public class MapCreate extends Activity {
 		spec2.setIndicator("Hybrid Map View"); // put text on tab
 		tabs.addTab(spec2);
 
+		//Adding a normal map to first tab
 		myMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
 				.getMap();
 		myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
 				38, -97), 3f));
 
+		//Adding a hybrid map to second map
 		myMap2 = ((MapFragment) getFragmentManager()
 				.findFragmentById(R.id.map2)).getMap();
 		myMap2.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 		myMap2.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
 				38, -97), 3f));
 	
-
+		
+		//Going through list of destination and adding markers for each place on both maps
 		for (int i = 0; i < addressBook.length; i++) {
 			myMap.addMarker(new MarkerOptions()
 					.position(getLatLng(addressBook[i])).title("" + (i + 1))
@@ -123,37 +129,35 @@ public class MapCreate extends Activity {
 					.icon(BitmapDescriptorFactory
 							.fromResource(R.drawable.mapicon1)));
 
-			// Storing geocoordinates in array
+			// Storing geocoordinates in arrayList
 			listLatLng = new ArrayList<LatLng>();
 			for (int j = 0; j < addressBook.length; j++) {
-
 				listLatLng.add(getLatLng(addressBook[j]));
 				d = calcTripDistance(listLatLng);
 
 			}
-
+			
+			
+			//Adding polyline to map with normal terrain
 			myMap.addPolyline(new PolylineOptions().addAll(listLatLng).width(5)
 					.color(Color.MAGENTA));
-
+			//Adding polyline to map with hybrid terrain
 			myMap2.addPolyline(new PolylineOptions().addAll(listLatLng)
 					.width(8).color(Color.BLUE));
 			
-
-
+			//Adding marker listeners to markers on map
 			myMap.setOnMarkerClickListener(new OnMarkerClickListener() {
 
 				public boolean onMarkerClick(Marker m) {
-
-					m.showInfoWindow();
 					
+					//When marker is clicked, a info window pops up
+					m.showInfoWindow();
 					return true;
 
 				}
 			});
 			
 			
-			
-
 			myMap.setInfoWindowAdapter(new InfoWindowAdapter() {
 
 				// Use default InfoWindow frame
@@ -314,12 +318,14 @@ public class MapCreate extends Activity {
 
 	}
 
+	//Method converting degrees to radians
 	private double deg2rad(double deg) {
 
 		return (deg * Math.PI / 180.0);
 
 	}
 
+	//Method to converting radians to degrees
 	private double rad2deg(double rad) {
 
 		return (rad * 180 / Math.PI);

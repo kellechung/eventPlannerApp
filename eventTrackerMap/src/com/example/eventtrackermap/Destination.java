@@ -18,11 +18,11 @@ public class Destination extends ListActivity implements OnClickListener {
 
 	ListView list; //List which displays the destination names added to trip to user
 	EditText destName, edtTextZip, edtTextMemos, edtTextStreetAdress,
-			edtTextCity;
+			edtTextCity; //Edit texts to get user inputs for destination address
 	Button btnAdd, btnUpdate, btnNext, btnDelete, btnMapView; // Buttons used to modify list
-	String dName, streetAdd, city, memos, zip;
-	place newDest; 
-	String tName; 
+	String dName, streetAdd, city, memos, zip; //Strings to store destination inputs from user
+	place newDest; // place object with instance variables street add, zip code etc
+	String tName; // String to store trip name info passed from intent
 	int nPeople; //Number of people going to trip
 
 	// ArrayList of type place to store multiple destinations for a given trip
@@ -43,6 +43,7 @@ public class Destination extends ListActivity implements OnClickListener {
 		tName = fromTrip.getStringExtra("tripVal");
 		nPeople = fromTrip.getIntExtra("peopleVal", 1);
 
+		//Initializing widgets
 		TextView txtDestinationHeader = (TextView) findViewById(R.id.txtDestinationHeader);
 		txtDestinationHeader.setText(tName);
 		destName = (EditText) findViewById(R.id.edtTextDestinationName);
@@ -56,11 +57,13 @@ public class Destination extends ListActivity implements OnClickListener {
 		btnDelete = (Button) findViewById(R.id.btnDelete);
 		btnMapView = (Button) findViewById(R.id.btnMapView);
 
-		// List adapter configuration
+		// List adapter configuration 
 		aa = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, placeName);
-
 		setListAdapter(aa);
+		
+		
+		// Adding listeners to buttons
 		aa.notifyDataSetChanged();
 		btnAdd.setOnClickListener(this);
 		btnUpdate.setOnClickListener(this);
